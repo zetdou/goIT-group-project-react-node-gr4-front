@@ -1,15 +1,7 @@
-@import-normalize; /* bring in normalize.css styles */
+/* @import-normalize; bring in normalize.css styles */
 
 /* :root {
   --color-white: #f8f8f8;
-  --color-light: #ddd;
-  --color-lightgray: #ccc;
-  --color-gray: #bbb;
-  --color-darkgray: #888;
-  --color-black: #111;
-  --color-background: #d5d5dd;
-  --color-accent: #226688;
-  --color-error: rgb(185, 39, 39);
 } */
 
 * {
