@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     // store={store}
     >
       <PersistGate loading={null} persistor={persistor}>
-        <BrowserRouter basename="node-group-project-frontend">
+        <BrowserRouter basename="goIT-group-project-react-node-gr4-front">
           <HelmetProvider>
             <App />
           </HelmetProvider>
