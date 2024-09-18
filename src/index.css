@@ -1,0 +1,57 @@
+@import-normalize; /* bring in normalize.css styles */
+
+/* :root {
+  --color-white: #f8f8f8;
+  --color-light: #ddd;
+  --color-lightgray: #ccc;
+  --color-gray: #bbb;
+  --color-darkgray: #888;
+  --color-black: #111;
+  --color-background: #d5d5dd;
+  --color-accent: #226688;
+  --color-error: rgb(185, 39, 39);
+} */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  /* background-color: var(--color-white);
+  color: var(--color-black); */
+  margin: 0;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif; */
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+button {
+  cursor: pointer;
+}
