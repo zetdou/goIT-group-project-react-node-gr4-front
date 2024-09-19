@@ -1,0 +1,32 @@
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding: 1rem;
+  width: 300px;
+}
+
+.heading {
+  color: var(--color-error);
+}
+
+.paragraph {
+  text-align: center;
+}
+
+/* @media screen and (min-width: 768px) {
+  .container {
+    font-size: 20px;
+    width: 600px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .container {
+    font-size: 24px;
+  }
+} */
