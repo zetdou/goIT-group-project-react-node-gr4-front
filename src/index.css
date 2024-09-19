@@ -1,20 +1,23 @@
 /* @import-normalize; bring in normalize.css styles */
 
-/* :root {
-  --color-white: #f8f8f8;
-} */
+:root {
+  --color-darkgray: #52555f;
+  --color-gray: #c7ccdc;
+  --color-lightgray: #f5f6fb;
+  --color-darkorange: #ff751d;
+  --color-orange: #fb7c2f;
+  --color-lightorange: #FFDAC0
+  --color-red: #e7192e;
+  --color-lightred: #eb5757;
+  --color-green: #407946;
+}
 
 * {
   box-sizing: border-box;
 }
 
 body {
-  /* background-color: var(--color-white);
-  color: var(--color-black); */
   margin: 0;
-  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif; */
   font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -37,11 +40,6 @@ ol {
   list-style: none;
   margin: 0;
   padding: 0;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
 }
 
 button {
