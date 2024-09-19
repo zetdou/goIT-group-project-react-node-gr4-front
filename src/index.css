@@ -1,9 +1,11 @@
 /* @import-normalize; bring in normalize.css styles */
 
 :root {
+  --color-black: #000;
   --color-darkgray: #52555f;
   --color-gray: #c7ccdc;
   --color-lightgray: #f5f6fb;
+  --color-white: #fff;
   --color-darkorange: #ff751d;
   --color-orange: #fb7c2f;
   --color-lightorange: #FFDAC0
