@@ -1,0 +1,187 @@
+/* add hover, focus and transition */
+
+.home {
+  /* outline: 1px solid gray; */
+  margin: 0 auto;
+  width: 320px;
+  padding: 86px 20px 105px;
+  position: relative;
+}
+
+.homeBackground {
+  background-color: var(--color-lightgray);
+  border-radius: 0 0 0 100px;
+  height: 286px;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.imgTopMobile {
+  position: absolute;
+  right: 0;
+  top: 104px;
+}
+
+.flexContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.mainHeader {
+  font-size: 46px;
+  height: 52px;
+  letter-spacing: 0;
+  /* width: 183px; */
+}
+
+/* .smallLogo {
+} */
+
+.mediumLogo {
+  display: none;
+}
+
+.bigLogo {
+  display: none;
+}
+
+.mainParagraph {
+  color: var(--color-darkergray);
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.form {
+  background-color: var(--color-white);
+  border-radius: 30px;
+  box-shadow: 5px 5px 15px #cacaca;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 40px 20px;
+}
+
+.fieldset {
+  border: none;
+  margin: 0;
+  /* outline: 1px solid gray; */
+  padding: 0;
+}
+
+/* .formParagraph {
+  color: var(--color-darkergray);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  margin-bottom: 16px;
+} */
+
+.firstFormParagraph {
+  color: var(--color-darkergray);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  margin-bottom: 16px;
+  max-width: 222px;
+  text-align: center;
+}
+
+.secondFormParagraph {
+  color: var(--color-darkergray);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  margin-bottom: 16px;
+}
+
+.googleButton {
+  background-color: var(--color-lightergray);
+  border: none;
+  border-radius: 30px; /* change? */
+  box-shadow: 0 3px 4px #eee;
+  display: flex;
+  font-size: 14px;
+  font-weight: bold;
+  gap: 10px;
+  margin: 0 auto;
+  padding: 11px 20px;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formRow {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+}
+
+.label {
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+
+.label::before {
+  color: var(--color-lightred);
+  content: '*';
+  /* display: none; */
+}
+
+.input {
+  background-color: var(--color-lightergray);
+  border: none;
+  border-radius: 40px; /* change? */
+  font-size: 14px;
+  padding: 17px; /* change? */
+  /* width: 100%; */
+}
+
+.input::placeholder {
+  color: var(--color-darkgray);
+  font-size: 14px;
+  letter-spacing: 0.04em;
+}
+
+.required {
+  bottom: -14px;
+  color: var(--color-lightred);
+  font-size: 10px;
+  position: absolute;
+  /* visibility: hidden; */
+}
+
+.buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 40px;
+  width: 100%;
+}
+
+.button {
+  background-color: var(--color-lightgray);
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 3px 4px #eee;
+  color: var(--color-darkergray);
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.02em;
+  padding: 15px 0;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.imgBottomMobile {
+  position: absolute;
+  left: 35px;
+  bottom: 0;
+}
+
+/* What is the best way to style an input below label so it takes 100% width? */
