@@ -4,16 +4,16 @@
   /* outline: 1px solid gray; */
   margin: 0 auto;
   width: 320px;
-  padding: 86px 20px 105px;
+  padding: 142px 20px 105px;
   position: relative;
   z-index: 1;
 }
 
-.imgTopMobile {
+/* .imgTopMobile {
   position: absolute;
   right: 0;
   top: 104px;
-}
+} */
 
 .flexContainer {
   display: flex;
@@ -22,9 +22,9 @@
 }
 
 .mainHeader {
-  font-size: 46px;
-  height: 52px;
-  letter-spacing: 0;
+  /* font-size: 46px; */
+  height: 50px;
+  /* letter-spacing: 0; */
   /* width: 183px; */
 }
 
@@ -50,7 +50,7 @@
 .form {
   background-color: var(--color-white);
   border-radius: 30px;
-  box-shadow: 5px 5px 15px #cacaca;
+  box-shadow: 5px 10px 15px #dfdfe8;
   display: flex;
   flex-direction: column;
   gap: 32px;
@@ -74,9 +74,10 @@
 .firstFormParagraph {
   color: var(--color-darkergray);
   font-size: 12px;
+  height: 28px;
   letter-spacing: 0.04em;
   margin-bottom: 16px;
-  max-width: 222px;
+  width: 222px;
   text-align: center;
 }
 
@@ -143,6 +144,7 @@
   bottom: -14px;
   color: var(--color-lightred);
   font-size: 10px;
+  height: 12px;
   position: absolute;
   /* visibility: hidden; */
 }
@@ -168,10 +170,68 @@
   width: 100%;
 }
 
-.imgBottomMobile {
+/* .imgBottomMobile {
   position: absolute;
   left: 35px;
   bottom: 0;
+} */
+
+@media screen and (min-width: 768px) {
+  .home {
+    padding: 136px 171px 155px;
+    width: 768px;
+  }
+
+  .flexContainer {
+    gap: 80px;
+  }
+
+  .mainHeader {
+    /* font-size: 46px; */
+    height: 82px;
+    /* letter-spacing: 0; */
+    /* width: 183px; */
+  }
+
+  .smallLogo {
+    display: none;
+  }
+
+  .mediumLogo {
+    display: block;
+  }
+
+  .mainParagraph {
+    font-size: 16px;
+    margin-left: 53px;
+  }
+
+  .form {
+    box-shadow: 0 5px 25px #eeeef8;
+    padding: 56px 84px;
+  }
+
+  /* .formParagraph {} */
+
+  .firstFormParagraph {
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  .secondFormParagraph {
+    color: var(--color-darkergray);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    margin-bottom: 20px;
+  }
+
+  .formContainer {
+    gap: 32px;
+  }
+
+  .label {
+    font-size: 12px;
+  }
 }
 
 /* What is the best way to style an input below label so it takes 100% width? */
