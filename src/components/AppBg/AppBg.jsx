@@ -1,4 +1,4 @@
-import css from "./AppBg.module.css";
+import css from './AppBg.module.css';
 
 export const AppBg = () => {
   return (
