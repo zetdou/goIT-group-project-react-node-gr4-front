@@ -5,10 +5,14 @@ import tabletLogo from '../../images/home-images/big-logo-tablet.svg';
 import desktopLogo from '../../images/home-images/big-logo-desktop.svg';
 import topMobile from '../../images/home-images/1-home-mobile.png';
 import bottomMobile from '../../images/home-images/2-home-mobile.png';
+import { AppBg } from '../../components/AppBg/AppBg';
 import css from './Home.module.css';
+
 
 const Home = () => {
   return (
+    <>
+    <AppBg />
     <main className={css.home}>
       <Helmet>
         <title>Home</title>
@@ -86,6 +90,7 @@ const Home = () => {
         </div>
       </div>
     </main>
+    </>
   );
 };
 

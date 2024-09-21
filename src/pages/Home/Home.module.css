@@ -6,17 +6,7 @@
   width: 320px;
   padding: 86px 20px 105px;
   position: relative;
-}
-
-.homeBackground {
-  background-color: var(--color-lightgray);
-  border-radius: 0 0 0 180px;
-  height: 286px;
-  width: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: -1;
+  z-index: 1;
 }
 
 .imgTopMobile {

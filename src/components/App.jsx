@@ -8,7 +8,6 @@ import { refreshUser } from '../redux/operations/auth';
 import { useAuth } from '../hooks/useAuth';
 import { Loader } from './Loader/Loader';
 import { NotFound } from '../pages/NotFound/NotFound';
-import { AppBg } from './AppBg/AppBg';
  
 // import pages like this
 const Home = lazy(() => import('../pages/Home/Home'));
@@ -23,7 +22,6 @@ export const App = () => {
 
   return (
     <>
-      <AppBg>
         {isRefreshing ? (
           <Loader />
         ) : (
@@ -55,7 +53,6 @@ export const App = () => {
             <Route path="*" element={<NotFound />} />
           </Routes>
         )}
-      </AppBg>
     </>
   );
 };

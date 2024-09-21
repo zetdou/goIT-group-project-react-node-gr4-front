@@ -2,7 +2,7 @@ import css from "./AppBg.module.css";
 
 export const AppBg = () => {
   return (
-    <div className={css.bgWrapper}>
+    <>
       <div className={css.bgColor}></div>
       <svg
         className={css.svgCabbageTop}
@@ -16,6 +16,6 @@ export const AppBg = () => {
         height={89}
         xmlns="http://www.w3.org/2000/svg"
       ></svg>
-    </div>
+    </>
   );
 };
