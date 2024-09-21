@@ -1,0 +1,55 @@
+.bgColor {
+    width: 100%;
+    height: 342px;
+    border-bottom-left-radius: 150px;
+    background: var(--color-lightgray);
+    position: fixed;
+    z-index: -1;
+  }
+  
+  .svgCabbageTop {
+    background-image: url(../../images/icons/Vectorcabbage2.svg);
+    position: fixed;
+    z-index: -1;
+    top: 104px;
+    right: 0px;
+    width: 49px;
+    height: 89px;
+  }
+  
+  .svgCabbageBottom {
+    background-image: url(../../images/icons/Vectorcabbage.svg);
+    position: fixed;
+    z-index: -1;
+    bottom: -3px;
+    left: 10%;
+  }
+  
+  @media (min-width: 768px) {
+    .bgColor {
+      height: 582px;
+    }
+  
+    .svgCabbageTop {
+      background-image: url(../../images/icons/VectorcabbageT&D.svg);
+      top: 84px;
+      width: 100%;
+      height: 232px;
+      background-repeat: repeat;
+    }
+  
+    .svgCabbageBottom {
+      background-image: url(../../images/icons/VectorcabbageT&D2.svg);
+      width: 183px;
+      height: 142px;
+      left: 13%;
+      bottom: 56px;
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .bgColor {
+      display: none;
+    }
+  }
+  
