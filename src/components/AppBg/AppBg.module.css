@@ -3,7 +3,7 @@
     height: 342px;
     border-bottom-left-radius: 150px;
     background: var(--color-lightgray);
-    position: relative;
+    position: fixed;
     z-index: -1;
   }
   
