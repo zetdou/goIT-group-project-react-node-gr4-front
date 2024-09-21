@@ -8,7 +8,7 @@
   position: relative;
 }
 
-.homeBackground {
+/* .homeBackground {
   background-color: var(--color-lightgray);
   border-radius: 0 0 0 100px;
   height: 286px;
@@ -23,7 +23,7 @@
   position: absolute;
   right: 0;
   top: 104px;
-}
+} */
 
 .flexContainer {
   display: flex;
@@ -178,10 +178,10 @@
   width: 100%;
 }
 
-.imgBottomMobile {
+/* .imgBottomMobile {
   position: absolute;
   left: 35px;
   bottom: 0;
-}
+} */
 
 /* What is the best way to style an input below label so it takes 100% width? */
