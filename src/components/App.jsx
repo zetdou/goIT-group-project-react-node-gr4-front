@@ -8,7 +8,8 @@ import { refreshUser } from '../redux/operations/auth';
 import { useAuth } from '../hooks/useAuth';
 import { Loader } from './Loader/Loader';
 import { NotFound } from '../pages/NotFound/NotFound';
-
+import { AppBg } from './AppBg/AppBg';
+ 
 // import pages like this
 const Home = lazy(() => import('../pages/Home/Home'));
 
@@ -21,14 +22,15 @@ export const App = () => {
   }, [dispatch]);
 
   return (
-    <div>
-      {isRefreshing ? (
-        <Loader />
-      ) : (
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            {/* <Route
+    <>
+      <AppBg>
+        {isRefreshing ? (
+          <Loader />
+        ) : (
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              {/* <Route
               path="register"
               element={
                 <RestrictedRoute
@@ -49,10 +51,11 @@ export const App = () => {
                 <PrivateRoute redirectTo="/login" component={<Contacts />} />
               }
             /> */}
-          </Route>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      )}
-    </div>
+            </Route>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        )}
+      </AppBg>
+    </>
   );
 };

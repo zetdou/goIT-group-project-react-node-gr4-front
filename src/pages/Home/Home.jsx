@@ -22,9 +22,6 @@ const Home = () => {
         />
       </Helmet>
       <div>
-        <div className={css.homeBackground}>
-          <img className={css.imgTopMobile} src={topMobile} alt="" />
-        </div>
         <div className={css.flexContainer}>
           <div>
             <h1 className={css.mainHeader}>
@@ -87,7 +84,6 @@ const Home = () => {
             </fieldset>
           </form>
         </div>
-        <img className={css.imgBottomMobile} src={bottomMobile} alt="" />
       </div>
     </main>
   );
