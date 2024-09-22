@@ -1,18 +1,9 @@
-/* add hover, focus and transition */
-
 .home {
-  /* outline: 1px solid gray; */
   margin: 0 auto;
   width: 320px;
-  padding: 86px 20px 105px;
+  padding: 142px 20px 105px;
   position: relative;
   z-index: 1;
-}
-
-.imgTopMobile {
-  position: absolute;
-  right: 0;
-  top: 104px;
 }
 
 .flexContainer {
@@ -22,14 +13,8 @@
 }
 
 .mainHeader {
-  font-size: 46px;
-  height: 52px;
-  letter-spacing: 0;
-  /* width: 183px; */
+  height: 50px;
 }
-
-/* .smallLogo {
-} */
 
 .mediumLogo {
   display: none;
@@ -50,7 +35,7 @@
 .form {
   background-color: var(--color-white);
   border-radius: 30px;
-  box-shadow: 5px 5px 15px #cacaca;
+  box-shadow: 5px 10px 15px #dfdfe8;
   display: flex;
   flex-direction: column;
   gap: 32px;
@@ -60,37 +45,31 @@
 .fieldset {
   border: none;
   margin: 0;
-  /* outline: 1px solid gray; */
   padding: 0;
 }
 
-/* .formParagraph {
+.formParagraph {
   color: var(--color-darkergray);
   font-size: 12px;
   letter-spacing: 0.04em;
   margin-bottom: 16px;
-} */
+}
 
 .firstFormParagraph {
-  color: var(--color-darkergray);
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  margin-bottom: 16px;
-  max-width: 222px;
+  composes: formParagraph;
+  height: 28px;
+  width: 222px;
   text-align: center;
 }
 
 .secondFormParagraph {
-  color: var(--color-darkergray);
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  margin-bottom: 16px;
+  composes: formParagraph;
 }
 
 .googleButton {
   background-color: var(--color-lightergray);
   border: none;
-  border-radius: 30px; /* change? */
+  border-radius: 30px;
   box-shadow: 0 3px 4px #eee;
   display: flex;
   font-size: 14px;
@@ -98,6 +77,13 @@
   gap: 10px;
   margin: 0 auto;
   padding: 11px 20px;
+  transition: box-shadow 200ms ease;
+}
+
+.googleButton:hover,
+.googleButton:focus {
+  box-shadow: 0 0 10px var(--color-darkergray);
+  outline: none;
 }
 
 .formContainer {
@@ -121,16 +107,16 @@
 .label::before {
   color: var(--color-lightred);
   content: '*';
-  /* display: none; */
+  display: none; /* depends */
 }
 
 .input {
   background-color: var(--color-lightergray);
   border: none;
-  border-radius: 40px; /* change? */
+  border-radius: 40px;
   font-size: 14px;
-  padding: 17px; /* change? */
-  /* width: 100%; */
+  padding: 17px;
+  transition: box-shadow 200ms ease;
 }
 
 .input::placeholder {
@@ -139,12 +125,19 @@
   letter-spacing: 0.04em;
 }
 
+.input:hover,
+.input:focus {
+  box-shadow: 0 0 5px var(--color-darkergray) inset;
+  outline: none;
+}
+
 .required {
   bottom: -14px;
   color: var(--color-lightred);
   font-size: 10px;
+  height: 12px;
   position: absolute;
-  /* visibility: hidden; */
+  visibility: hidden; /* depends */
 }
 
 .buttons {
@@ -165,13 +158,101 @@
   letter-spacing: 0.02em;
   padding: 15px 0;
   text-transform: uppercase;
+  transition: background-color 200ms ease, box-shadow 200ms ease,
+    color 200ms ease;
   width: 100%;
 }
 
-.imgBottomMobile {
-  position: absolute;
-  left: 35px;
-  bottom: 0;
+.button:hover,
+.button:focus {
+  background-color: var(--color-darkorange);
+  box-shadow: 0 3px 4px #fc9;
+  color: var(--color-white);
+  outline: none;
 }
 
-/* What is the best way to style an input below label so it takes 100% width? */
+@media screen and (min-width: 768px) {
+  .home {
+    padding: 136px 171px 155px;
+    width: 768px;
+  }
+
+  .flexContainer {
+    gap: 80px;
+  }
+
+  .mainHeader {
+    height: 82px;
+  }
+
+  .smallLogo {
+    display: none;
+  }
+
+  .mediumLogo {
+    display: block;
+  }
+
+  .mainParagraph {
+    font-size: 16px;
+    letter-spacing: 0.18em;
+    margin-left: 53px;
+  }
+
+  .form {
+    box-shadow: 0 5px 25px #eeeef8;
+    padding: 56px 84px;
+  }
+
+  .firstFormParagraph {
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  .secondFormParagraph {
+    margin-bottom: 20px;
+  }
+
+  .formContainer {
+    gap: 32px;
+  }
+
+  .label {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .home {
+    width: 1280px;
+    padding: 173px 91px 125px;
+  }
+
+  .flexContainer {
+    flex-direction: row;
+    gap: 157px;
+  }
+
+  .mainHeader {
+    height: 120px;
+    margin-left: 138px;
+    margin-top: 191px;
+  }
+
+  .mediumLogo {
+    display: none;
+  }
+
+  .bigLogo {
+    display: block;
+  }
+
+  .mainParagraph {
+    font-size: 16px;
+    margin-left: 210px;
+  }
+
+  .form {
+    padding: 56px 83px;
+  }
+}

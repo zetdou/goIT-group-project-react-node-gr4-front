@@ -3,20 +3,18 @@ import googleIcon from '../../images/icons/google.svg';
 import mobileLogo from '../../images/home-images/big-logo-mobile.svg';
 import tabletLogo from '../../images/home-images/big-logo-tablet.svg';
 import desktopLogo from '../../images/home-images/big-logo-desktop.svg';
-import topMobile from '../../images/home-images/1-home-mobile.png';
-import bottomMobile from '../../images/home-images/2-home-mobile.png';
 import { AppBg } from '../../components/AppBg/AppBg';
-import css from './Home.module.css';
-import { Header } from '../../components/Header/Header';
+import css from './HomeLoggedOut.module.css';
+// import { Header } from '../../components/Header/Header';
 
-const Home = () => {
+const HomeLoggedOut = () => {
   return (
     <>
       <AppBg />
-      <Header />
+      {/* <Header /> */}
       <main className={css.home}>
         <Helmet>
-          <title>Home</title>
+          <title>Log in or sign up</title>
           <meta
             name="description"
             content="Welcome to the home page. Log in or sign up to manage your finances."
@@ -99,4 +97,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomeLoggedOut;

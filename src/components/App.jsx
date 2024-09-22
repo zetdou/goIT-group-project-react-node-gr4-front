@@ -23,7 +23,7 @@ const ReportsPage = lazy(() =>
 
 export const App = () => {
   const dispatch = useDispatch();
-  const { isRefreshing } = useAuth();
+  const { isRefreshing, isLoggedIn } = useAuth();
 
   useEffect(() => {
     dispatch(refreshUser());
