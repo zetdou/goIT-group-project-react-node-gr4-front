@@ -10,11 +10,14 @@ import { Loader } from './Loader/Loader';
 import { NotFound } from '../pages/NotFound/NotFound';
 
 // import pages like this
-const Home = lazy(() => import('../pages/Home/Home'));
+const HomeLoggedOut = lazy(() =>
+  import('../pages/HomeLoggedOut/HomeLoggedOut')
+);
+const HomeLoggedIn = lazy(() => import('../pages/HomeLoggedIn/HomeLoggedIn'));
 
 export const App = () => {
   const dispatch = useDispatch();
-  const { isRefreshing } = useAuth();
+  const { isRefreshing, isLoggedIn } = useAuth();
 
   useEffect(() => {
     dispatch(refreshUser());
@@ -27,7 +30,10 @@ export const App = () => {
       ) : (
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
+            <Route
+              index
+              element={isLoggedIn ? <HomeLoggedIn /> : <HomeLoggedOut />}
+            />
             {/* <Route
               path="register"
               element={
