@@ -1,4 +1,4 @@
-import axios from './axiosConfig.js';
+import axios from '../Tools/axiosConfig';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 const setAuthHeader = token => {
@@ -58,6 +58,19 @@ export const refreshUser = createAsyncThunk(
     try {
       setAuthHeader(persistedToken);
       const res = await axios.get('/users/current');
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateBalance = createAsyncThunk(
+  'auth/updateBalance',
+  async (balanceValue, thunkAPI) => {
+    const newBalance = balanceValue;
+    try {
+      const res = await axios.patch('user/balance', { newBalance });
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
