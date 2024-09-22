@@ -3,13 +3,39 @@ import googleIcon from '../../images/icons/google.svg';
 import mobileLogo from '../../images/home-images/big-logo-mobile.svg';
 import tabletLogo from '../../images/home-images/big-logo-tablet.svg';
 import desktopLogo from '../../images/home-images/big-logo-desktop.svg';
-import topMobile from '../../images/home-images/1-home-mobile.png';
-import bottomMobile from '../../images/home-images/2-home-mobile.png';
-import { AppBg } from '../../components/AppBg/AppBg';
 import css from './Home.module.css';
+import { AppBg } from '../../components/AppBg/AppBg';
 import { Header } from '../../components/Header/Header';
+import { useDispatch } from 'react-redux';
+import { logIn, register } from '../../redux/Users/AuthOperations';
 
 const Home = () => {
+  const dispatch = useDispatch();
+
+  const handleLogin = event => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const buttonClicked = event.nativeEvent.submitter.name;
+
+    if (buttonClicked === 'login') {
+      dispatch(
+        logIn({
+          email: form.elements.email.value,
+          password: form.elements.password.value,
+        })
+      );
+    } else if (buttonClicked === 'register') {
+      dispatch(
+        register({
+          email: form.elements.email.value,
+          password: form.elements.password.value,
+        })
+      );
+    }
+
+    form.reset();
+  };
+
   return (
     <>
       <AppBg />
@@ -40,7 +66,7 @@ const Home = () => {
               </h1>
               <p className={css.mainParagraph}>Smart finance</p>
             </div>
-            <form className={css.form}>
+            <form className={css.form} onSubmit={handleLogin}>
               <fieldset className={css.fieldset}>
                 <legend className={css.firstFormParagraph}>
                   You can log in with your Google Account:
@@ -64,7 +90,9 @@ const Home = () => {
                       type="text"
                       name="email"
                       id="email"
+                      pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
                       placeholder="your@email.com"
+                      required
                     />
                     <p className={css.required}>This is a required field</p>
                   </div>
@@ -75,18 +103,20 @@ const Home = () => {
                     <input
                       className={css.input}
                       type="password"
+                      minLength={6}
                       name="password"
                       id="password"
                       placeholder="Password"
+                      required
                     />
                     <p className={css.required}>This is a required field</p>
                   </div>
                 </div>
                 <div className={css.buttons}>
-                  <button className={css.button} type="submit">
+                  <button className={css.button} type="submit" name="login">
                     Log in
                   </button>
-                  <button className={css.button} type="submit">
+                  <button className={css.button} type="submit" name="register">
                     Registration
                   </button>
                 </div>
