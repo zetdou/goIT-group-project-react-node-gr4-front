@@ -3,9 +3,9 @@ import { Outlet } from 'react-router-dom';
 import { Loader } from '../Loader/Loader';
 // import { Header } from '../Header/Header';
 // import { Footer } from '../Footer/Footer';
-import css from './Layout.module.css';
+import css from './SharedLayout.module.css';
 
-export const Layout = () => {
+export const SharedLayout = () => {
   return (
     <div className={css.container}>
       {/* <Header /> */}

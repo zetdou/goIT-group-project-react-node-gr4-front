@@ -10,7 +10,8 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { authReducer } from './slices/authSlice';
+import { authReducer } from "../redux/Users/AuthSlice"
+import { reportReducer } from './Report/ReportSlice';
 // import other slices
 
 const authPersistConfig = {
@@ -22,7 +23,7 @@ const authPersistConfig = {
 export const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
-    // write here
+    report: reportReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
