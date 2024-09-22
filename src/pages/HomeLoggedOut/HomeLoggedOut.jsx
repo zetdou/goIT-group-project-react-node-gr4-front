@@ -14,7 +14,7 @@ const HomeLoggedOut = () => {
       {/* <Header /> */}
       <main className={css.home}>
         <Helmet>
-          <title>Home</title>
+          <title>Log in or sign up</title>
           <meta
             name="description"
             content="Welcome to the home page. Log in or sign up to manage your finances."

@@ -10,14 +10,14 @@ const HomeLoggedIn = () => {
       {/* <Header /> */}
       <main className={css.home}>
         <Helmet>
-          <title>Home</title>
+          <title>Expenses and income</title>
           <meta
             name="description"
-            content="Welcome to the home page. Log in or sign up to manage your finances."
+            content="Welcome to the home page. Manage your expenses and income."
           />
           <meta
             name="keywords"
-            content="home, kapusta, finances, login, registration, signup, signin"
+            content="home, kapusta, finances, expenses, income, balance"
           />
         </Helmet>
         <div>Home logged in view</div>
