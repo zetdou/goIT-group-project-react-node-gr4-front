@@ -1,4 +1,5 @@
 import css from './Header.module.css';
+import { UserMenu } from '../UserMenu/UserMenu';
 
 export const Header = () => {
   return (
@@ -7,6 +8,7 @@ export const Header = () => {
         <a href='/'>
           <svg className={css.logo}></svg>
         </a>
+        <UserMenu />
       </header>
     </>
   );

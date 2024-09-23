@@ -1,0 +1,32 @@
+.userMenuWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 170px;
+    height: 36px;
+}
+
+.userMenuAvatar {
+    background: var(--color-lightgray);
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.userMenuLetter {
+    font-weight: 700;
+}
+
+.userMenuRectangle {
+    width: 1px;
+    height: 36px;
+    background: var(--color-lightgray);
+}
+
+.userMenuLogout {
+    cursor: pointer;
+    text-decoration: underline;
+}
