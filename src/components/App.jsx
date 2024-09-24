@@ -10,10 +10,7 @@ import { Loader } from './Loader/Loader';
 import { NotFound } from '../pages/NotFound/NotFound';
 
 // import pages like this
-const HomeLoggedOut = lazy(() =>
-  import('../pages/HomeLoggedOut/HomeLoggedOut')
-);
-// const HomeLoggedIn = lazy(() => import('../pages/HomeLoggedIn/HomeLoggedIn'));
+const Home = lazy(() => import('../pages/Home/Home'));
 const RegisterPage = lazy(() => import('../pages/RegisterPage/RegisterPage'));
 const TransactionPage = lazy(() =>
   import('../pages/Transactions/Transactions')
@@ -40,15 +37,7 @@ export const App = () => {
       ) : (
         <Routes>
           <Route path="/" element={<SharedLayout />}>
-            {/* <Route
-              index
-              element={
-                <PublicRoute
-                  element={isLoggedIn ? <HomeLoggedIn /> : <HomeLoggedOut />}
-                />
-              }
-            /> */}
-            <Route index element={<PublicRoute element={HomeLoggedOut} />} />
+            <Route index element={<PublicRoute element={Home} />} />
             <Route
               path="/register"
               element={<PublicRoute element={RegisterPage} />}

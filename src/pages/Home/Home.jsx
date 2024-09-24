@@ -6,12 +6,12 @@ import desktopLogo from '../../images/home-images/big-logo-desktop.svg';
 // import topMobile from '../../images/home-images/1-home-mobile.png';
 // import bottomMobile from '../../images/home-images/2-home-mobile.png';
 import { AppBg } from '../../components/AppBg/AppBg';
-import css from './HomeLoggedOut.module.css';
+import css from './Home.module.css';
 // import { Header } from '../../components/Header/Header';
 import { register, logIn } from '../../redux/Users/AuthOperations';
 import { useDispatch } from 'react-redux';
 
-const HomeLoggedOut = () => {
+const Home = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = event => {
@@ -128,4 +128,4 @@ const HomeLoggedOut = () => {
   );
 };
 
-export default HomeLoggedOut;
+export default Home;
