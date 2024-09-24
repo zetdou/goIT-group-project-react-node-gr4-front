@@ -17,13 +17,14 @@ const TransactionPage = lazy(() =>
 );
 const Expenses = lazy(() => import('./Expenses/Expenses'));
 const Incomes = lazy(() => import('./Incomes/Incomes'));
-const ReportsPage = lazy(() =>
-  import('../pages/Report/Report')
-);
+const ReportsPage = lazy(() => import('../pages/Report/Report'));
 
 export const App = () => {
   const dispatch = useDispatch();
-  const { isRefreshing, isLoggedIn } = useAuth();
+  const {
+    isRefreshing,
+    // isLoggedIn
+  } = useAuth();
 
   useEffect(() => {
     dispatch(refreshUser());
@@ -44,7 +45,7 @@ export const App = () => {
             <Route
               path="/transactions"
               element={<PrivateRoute element={TransactionPage} />}
-              >                
+            >
               <Route path="expenses" element={<Expenses />} />
               <Route path="incomes" element={<Incomes />} />
             </Route>

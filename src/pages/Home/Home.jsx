@@ -7,13 +7,53 @@ import desktopLogo from '../../images/home-images/big-logo-desktop.svg';
 // import bottomMobile from '../../images/home-images/2-home-mobile.png';
 import { AppBg } from '../../components/AppBg/AppBg';
 import css from './Home.module.css';
-import { Header } from '../../components/Header/Header';
+// import { Header } from '../../components/Header/Header';
+import { register, logIn } from '../../redux/Users/AuthOperations';
+import { useDispatch } from 'react-redux';
+import { auth, googleProvider, signInWithPopup } from '../../firebase';
 
 const Home = () => {
+  const dispatch = useDispatch();
+
+  const handleSubmit = event => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const buttonClicked = event.nativeEvent.submitter.name;
+
+    if (buttonClicked === 'login') {
+      dispatch(
+        logIn({
+          email: form.elements.email.value,
+          password: form.elements.password.value,
+        })
+      );
+    } else if (buttonClicked === 'register') {
+      dispatch(
+        register({
+          email: form.elements.email.value,
+          password: form.elements.password.value,
+        })
+      );
+    }
+
+    form.reset();
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      dispatch(logIn({ email: user.email, name: user.displayName }));
+    } catch (error) {
+      console.error('Google sign-in error:', error);
+    }
+  };
+
   return (
     <>
       <AppBg />
-      <Header />
+      {/* <Header /> */}
       <main className={css.home}>
         <Helmet>
           <title>Home</title>
@@ -40,12 +80,16 @@ const Home = () => {
               </h1>
               <p className={css.mainParagraph}>Smart finance</p>
             </div>
-            <form className={css.form}>
+            <form className={css.form} onSubmit={handleSubmit}>
               <fieldset className={css.fieldset}>
                 <legend className={css.firstFormParagraph}>
                   You can log in with your Google Account:
                 </legend>
-                <button className={css.googleButton}>
+                <button
+                  className={css.googleButton}
+                  type="button"
+                  onClick={handleGoogleSignIn}
+                >
                   <img src={googleIcon} alt="google" />
                   Google
                 </button>
@@ -83,10 +127,10 @@ const Home = () => {
                   </div>
                 </div>
                 <div className={css.buttons}>
-                  <button className={css.button} type="submit">
+                  <button className={css.button} type="submit" name="login">
                     Log in
                   </button>
-                  <button className={css.button} type="submit">
+                  <button className={css.button} type="submit" name="register">
                     Registration
                   </button>
                 </div>
