@@ -21,6 +21,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .closeBtn {
@@ -30,6 +31,12 @@
     background: none;
     border-style: none;
     cursor: pointer;
+}
+
+.closeIcon {
+    background: url(../../images/icons/close.svg);
+    width: 14px;
+    height: 14px;
 }
 
 .modalText {

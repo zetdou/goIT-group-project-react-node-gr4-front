@@ -2,8 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 170px;
-    height: 36px;
+    gap: 8px;
 }
 
 .userMenuAvatar {
@@ -16,17 +15,61 @@
     justify-content: center;
 }
 
+.usernameText {
+    display: none;
+}
+
 .userMenuLetter {
     font-weight: 700;
 }
 
 .userMenuRectangle {
-    width: 1px;
-    height: 36px;
-    background: var(--color-lightgray);
+    display: none;
 }
 
 .userMenuLogout {
     cursor: pointer;
-    text-decoration: underline;
+    background: none;
+    border-style: none;
+}
+
+.logoutIcon {
+    background: url(../../images/icons/logout.svg);
+    width: 16px;
+    height: 16px;
+}
+
+.logoutText {
+    display: none;
+}
+
+@media (min-width: 768px) {
+
+    .userMenuWrapper {
+        justify-content: space-between;
+        width: 170px;
+        height: 36px;
+        gap: 0px;
+    }
+
+    .usernameText {
+        display: block;
+    }
+
+    .userMenuRectangle {
+        display: block;
+        width: 1px;
+        height: 36px;
+        background: var(--color-lightgray);
+    }
+
+    .logoutIcon {
+        display: none;
+    }
+
+    .logoutText {
+        display: block;
+        text-decoration: underline;
+    }
+    
 }

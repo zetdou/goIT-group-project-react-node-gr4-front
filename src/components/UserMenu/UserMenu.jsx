@@ -25,9 +25,12 @@ export const UserMenu = () => {
             <div className={css.userMenuAvatar}>
                 <p className={css.userMenuLetter}>U</p>
             </div>
-            <p>User Name</p>
+            <p className={css.usernameText}>Username</p>
             <div className={css.userMenuRectangle}></div>
-            <a className={css.userMenuLogout} onClick={handleLogoutClick}>Exit</a>
+            <button className={css.userMenuLogout} onClick={handleLogoutClick}>
+                <svg className={css.logoutIcon} xmlns="http://www.w3.org/2000/svg"></svg>
+                <p className={css.logoutText}>Exit</p>
+            </button>
 
             {showModal && (
                 <ExitModal 
