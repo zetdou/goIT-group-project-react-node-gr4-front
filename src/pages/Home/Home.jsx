@@ -10,6 +10,7 @@ import css from './Home.module.css';
 // import { Header } from '../../components/Header/Header';
 import { register, logIn } from '../../redux/Users/AuthOperations';
 import { useDispatch } from 'react-redux';
+import { auth, googleProvider, signInWithPopup } from '../../firebase';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -37,6 +38,16 @@ const Home = () => {
     }
 
     form.reset();
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      dispatch(logIn({ email: user.email, name: user.displayName }));
+    } catch (error) {
+      console.error('Google sign-in error:', error);
+    }
   };
 
   return (
@@ -74,7 +85,11 @@ const Home = () => {
                 <legend className={css.firstFormParagraph}>
                   You can log in with your Google Account:
                 </legend>
-                <button className={css.googleButton}>
+                <button
+                  className={css.googleButton}
+                  type="button"
+                  onClick={handleGoogleSignIn}
+                >
                   <img src={googleIcon} alt="google" />
                   Google
                 </button>
