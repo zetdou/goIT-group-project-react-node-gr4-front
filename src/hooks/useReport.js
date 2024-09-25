@@ -1,13 +1,13 @@
-import { useSelector } from "react-redux";
-import { incomes, expenses } from "../redux/Report/ReportSelectors";
+import { useSelector } from 'react-redux';
+import { incomes, expenses } from '../redux/Report/ReportSelectors';
 
-const useReport = (currentView) => {
-    const incomesReport = useSelector(incomes);
-    const expensesReport = useSelector(expenses);
+const useReport = currentView => {
+  const incomesReport = useSelector(incomes);
+  const expensesReport = useSelector(expenses);
 
-    const data = currentView === "expenses" ? expensesReport : incomesReport;
+  const data = currentView === 'expenses' ? expensesReport : incomesReport;
 
-    return data
-}
+  return data;
+};
 
 export default useReport;

@@ -10,7 +10,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { authReducer } from "../redux/Users/AuthSlice"
+import { authReducer } from '../redux/Users/AuthSlice';
 import { reportReducer } from './Report/ReportSlice';
 // import other slices
 
