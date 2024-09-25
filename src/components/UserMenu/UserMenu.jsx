@@ -4,7 +4,7 @@ import css from "./UserMenu.module.css";
 import { ExitModal } from "../ExitModal/ExitModal";
 
 export const UserMenu = () => {
-    // const { user, isLoggedIn } = useAuth();
+    const { user } = useAuth();
     const [showModal, setShowModal] = useState(false);
 
     const handleLogoutClick = () => {
@@ -25,7 +25,7 @@ export const UserMenu = () => {
             <div className={css.userMenuAvatar}>
                 <p className={css.userMenuLetter}>U</p>
             </div>
-            <p className={css.usernameText}>Username</p>
+            <p className={css.usernameText}>user</p>
             <div className={css.userMenuRectangle}></div>
             <button className={css.userMenuLogout} onClick={handleLogoutClick}>
                 <svg className={css.logoutIcon} xmlns="http://www.w3.org/2000/svg"></svg>
