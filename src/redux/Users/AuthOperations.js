@@ -17,6 +17,7 @@ export const register = createAsyncThunk(
       setAuthHeader(res.data.accessToken);
       return res.data;
     } catch (error) {
+      console.error("Registration error: ", error.message);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -31,6 +32,7 @@ export const logIn = createAsyncThunk(
       setAuthHeader(res.data.accessToken);
       return res.data;
     } catch (error) {
+      console.error("Login error :", error.message);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -52,14 +54,17 @@ export const refreshUser = createAsyncThunk(
     const persistedToken = state.auth.token;
 
     if (!persistedToken) {
+      console.warn('No token found, unable to fetch user');
       return thunkAPI.rejectWithValue('Unable to fetch user');
     }
 
     try {
       setAuthHeader(persistedToken);
       const res = await axios.get('/user');
+      console.log('User data fetched successfully:', res.data);
       return res.data;
     } catch (error) {
+      console.error('Error fetching user data:', error.message);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
