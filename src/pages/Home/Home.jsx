@@ -11,7 +11,7 @@ import css from './Home.module.css';
 import { register, logIn } from '../../redux/Users/AuthOperations';
 import { useDispatch } from 'react-redux';
 import { auth, googleProvider } from '../../firebase';
-import { signInWithPopup } from 'firebase/auth';
+import { signInWithRedirect } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -26,8 +26,8 @@ const Home = () => {
     const form = event.currentTarget;
     const buttonClicked = event.nativeEvent.submitter.name;
 
-     const email = form.elements.email.value;
-     const password = form.elements.password.value;
+    const email = form.elements.email.value;
+    const password = form.elements.password.value;
 
     console.log('Email:', email); // Logowanie do konsoli
     console.log('Password:', password); // Logowanie do konsoli
@@ -58,7 +58,7 @@ const Home = () => {
 
   const handleGoogleSignIn = async () => {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
+      const result = await signInWithRedirect(auth, googleProvider);
       const user = result.user;
       dispatch(logIn({ email: user.email, name: user.displayName }));
     } catch (error) {
