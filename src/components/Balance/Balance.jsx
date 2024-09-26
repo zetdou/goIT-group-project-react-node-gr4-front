@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { useDispatch } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { updateBalance } from '../../redux/Users/AuthOperations';
 
