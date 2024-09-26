@@ -10,7 +10,7 @@ const CurrentPeriod = ({ initialPeriod }) => {
 
   const toPreviousMonth = () => {
     setCurrentPeriod(previousPeriod => {
-      const [year, month] = getYearAndMonth(prevPeriod);
+      const [year, month] = getYearAndMonth(previousPeriod);
       const previousMonth = new Date(year, month - 2);
       return `${previousMonth.getFullYear()}-${String(
         previousMonth.getMonth() + 1
@@ -20,7 +20,7 @@ const CurrentPeriod = ({ initialPeriod }) => {
 
   const toNextMonth = () => {
     setCurrentPeriod(previousPeriod => {
-      const [year, month] = getYearAndMonth(prevPeriod);
+      const [year, month] = getYearAndMonth(previousPeriod);
       const nextMonth = new Date(year, month);
       const today = new Date();
       if (nextMonth <= new Date(today.getFullYear(), today.getMonth())) {
@@ -28,6 +28,7 @@ const CurrentPeriod = ({ initialPeriod }) => {
           nextMonth.getMonth() + 1
         ).padStart(2, '0')}`;
       }
+      return previousPeriod;
     });
   };
 
@@ -41,9 +42,9 @@ const CurrentPeriod = ({ initialPeriod }) => {
     <div>
       <h2>Current period:</h2>
       <div>
-        <button onClick={toPreviousMonth}>{iconTool.previousPeriod}</button>
+        <button onClick={toPreviousMonth}>{iconTool.smallArrowLeft}</button>
         <p>{formattedDate}</p>
-        <button onClick={toNextMonth}>{iconTool.nextPeriod}</button>
+        <button onClick={toNextMonth}>{iconTool.smallArrowRight}</button>
       </div>
     </div>
   );

@@ -11,8 +11,10 @@ import { ReactComponent as SalaryIcon } from '../../images/report-images/salary.
 import { ReactComponent as SportsHobbiesIcon } from '../../images/report-images/hobbies.svg';
 import { ReactComponent as TechniqueIcon } from '../../images/report-images/technique.svg';
 import { ReactComponent as TransportIcon } from '../../images/report-images/transport-desktop-tablet.svg';
-import { ReactComponent as PreviousPeriodIcon } from '../../images/icons/left.svg';
-import { ReactComponent as NextPeriodIcon } from '../../images/icons/right.svg';
+import { ReactComponent as SmallArrowLeft } from '../../images/icons/left.svg';
+import { ReactComponent as SmallArrowRight } from '../../images/icons/right.svg';
+import { ReactComponent as ArrowLeft } from '../../images/icons/back.svg';
+import { ReactComponent as ArrowRight } from '../../images/icons/right.svg';
 
 
 const iconTool = {
@@ -29,8 +31,10 @@ const iconTool = {
   sportsHobbies: <SportsHobbiesIcon />,
   technique: <TechniqueIcon />,
   transport: <TransportIcon />,
-  previousPeriod: <PreviousPeriodIcon />,
-  nextPeriod: <NextPeriodIcon />
+  smallArrowLeft: <SmallArrowLeft />,
+  smallArrowRight: <SmallArrowRight />,
+  arrowLeft: <ArrowLeft />,
+  arrowRight: <ArrowRight />
 };
 
 export default iconTool;
