@@ -7,12 +7,12 @@ import { useAuth } from '../../hooks/useAuth';
 
 import BalanceModal from '../BalanceModal/BalanceModal';
 
-export const Balance = () => {
+const Balance = () => {
   const dispatch = useDispatch();
   const form = useRef();
   const { user } = useAuth();
 
-  let userBalance = user.balance;
+  const userBalance = user ? user.balance : null;
   let balanceValue;
 
   const handleSubmit = e => {
@@ -43,3 +43,5 @@ export const Balance = () => {
     </div>
   );
 };
+
+export default Balance;

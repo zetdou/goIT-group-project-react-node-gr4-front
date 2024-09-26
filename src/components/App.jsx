@@ -16,7 +16,7 @@ const TransactionPage = lazy(() =>
 );
 const Expenses = lazy(() => import('./Expenses/Expenses'));
 const Incomes = lazy(() => import('./Incomes/Incomes'));
-const ReportsPage = lazy(() => import('../pages/Report/Report'));
+const ReportsPage = lazy(() => import('../pages/Report/ReportPage'));
 
 export const App = () => {
   const dispatch = useDispatch();
