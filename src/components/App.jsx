@@ -11,7 +11,6 @@ import { NotFound } from '../pages/NotFound/NotFound';
 
 // import pages like this
 const Home = lazy(() => import('../pages/Home/Home'));
-const RegisterPage = lazy(() => import('../pages/RegisterPage/RegisterPage'));
 const TransactionPage = lazy(() =>
   import('../pages/Transactions/Transactions')
 );
@@ -37,21 +36,30 @@ export const App = () => {
       ) : (
         <Routes>
           <Route path="/" element={<SharedLayout />}>
-            <Route index element={<PublicRoute element={Home} />} />
             <Route
-              path="/register"
-              element={<PublicRoute element={RegisterPage} />}
+              index
+              element={
+                <PublicRoute element={Home} redirectTo="/transactions" />
+              }
             />
             <Route
               path="/transactions"
-              element={<PrivateRoute element={TransactionPage} />}
+              element={
+                <PrivateRoute element={TransactionPage} redirectTo="/" />
+              }
             >
-              <Route path="expenses" element={<Expenses />} />
-              <Route path="incomes" element={<Incomes />} />
+              <Route
+                path="expenses"
+                element={<PrivateRoute element={Expenses} redirectTo="/" />}
+              />
+              <Route
+                path="incomes"
+                element={<PrivateRoute element={Incomes} redirectTo="/" />}
+              />
             </Route>
             <Route
               path="/reports"
-              element={<PrivateRoute element={ReportsPage} />}
+              element={<PrivateRoute element={ReportsPage} redirectTo="/" />}
             />
           </Route>
           <Route path="*" element={<NotFound />} />

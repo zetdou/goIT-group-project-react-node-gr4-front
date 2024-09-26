@@ -10,34 +10,50 @@ import css from './Home.module.css';
 // import { Header } from '../../components/Header/Header';
 import { register, logIn } from '../../redux/Users/AuthOperations';
 import { useDispatch } from 'react-redux';
-import { auth, googleProvider, signInWithPopup } from '../../firebase';
+import { auth, googleProvider } from '../../firebase';
+import { signInWithPopup } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const Home = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [error, setError] = useState('');
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
 
     const form = event.currentTarget;
     const buttonClicked = event.nativeEvent.submitter.name;
 
-    if (buttonClicked === 'login') {
-      dispatch(
-        logIn({
-          email: form.elements.email.value,
-          password: form.elements.password.value,
-        })
-      );
-    } else if (buttonClicked === 'register') {
-      dispatch(
-        register({
-          email: form.elements.email.value,
-          password: form.elements.password.value,
-        })
-      );
-    }
+     const email = form.elements.email.value;
+     const password = form.elements.password.value;
 
-    form.reset();
+    console.log('Email:', email); // Logowanie do konsoli
+    console.log('Password:', password); // Logowanie do konsoli
+
+    try {
+      if (buttonClicked === 'login') {
+        await dispatch(
+          logIn({
+            email: form.elements.email.value,
+            password: form.elements.password.value,
+          })
+        );
+      } else if (buttonClicked === 'register') {
+        await dispatch(
+          register({
+            email: form.elements.email.value,
+            password: form.elements.password.value,
+          })
+        );
+      }
+      navigate('/transactions');
+    } catch (err) {
+      setError('Login or registration failed. Please try again.');
+    } finally {
+      form.reset();
+    }
   };
 
   const handleGoogleSignIn = async () => {
