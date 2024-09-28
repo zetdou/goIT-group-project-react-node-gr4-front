@@ -15,9 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
-          <GoogleOAuthProvider
-            clientId={process.env.REACT_APP_GOOGLE_API_TOKEN}
-          >
+          <GoogleOAuthProvider clientId="743543484063-masnnsieejb5vdo1jvcd98nr3giecho3.apps.googleusercontent.com">
             <HelmetProvider>
               <App />
             </HelmetProvider>
