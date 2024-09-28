@@ -1,0 +1,19 @@
+.googleButton {
+  background-color: var(--color-lightergray);
+  border: none;
+  border-radius: 30px;
+  box-shadow: 0 3px 4px #eee;
+  display: flex;
+  font-size: 14px;
+  font-weight: bold;
+  gap: 10px;
+  margin: 0 auto;
+  padding: 11px 20px;
+  transition: box-shadow 200ms ease;
+}
+
+.googleButton:hover,
+.googleButton:focus {
+  box-shadow: 0 0 10px var(--color-darkergray);
+  outline: none;
+}
