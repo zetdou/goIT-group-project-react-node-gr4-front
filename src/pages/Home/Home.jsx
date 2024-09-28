@@ -10,12 +10,24 @@ import css from './Home.module.css';
 // import { Header } from '../../components/Header/Header';
 import { register, logIn } from '../../redux/Users/AuthOperations';
 import { useDispatch } from 'react-redux';
-import { auth, googleProvider } from '../../firebase';
-import { signInWithPopup } from 'firebase/auth';
+// import { auth, googleProvider } from '../../firebase';
+// import { signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { GoogleButton } from '../../components/GoogleButton/GoogleButton';
+// import { gapi } from 'gapi-script';
 
 const Home = () => {
+  // useEffect(() => {
+  //   function start() {
+  //     gapi.client.init({
+  //       clientId: process.env.REACT_APP_GOOGLE_API_TOKEN,
+  //       scope: '',
+  //     });
+  //   }
+  //   gapi.load('client:auth2', start);
+  // });
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState('');
@@ -26,8 +38,8 @@ const Home = () => {
     const form = event.currentTarget;
     const buttonClicked = event.nativeEvent.submitter.name;
 
-     const email = form.elements.email.value;
-     const password = form.elements.password.value;
+    const email = form.elements.email.value;
+    const password = form.elements.password.value;
 
     console.log('Email:', email); // Logowanie do konsoli
     console.log('Password:', password); // Logowanie do konsoli
@@ -56,15 +68,15 @@ const Home = () => {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
-      dispatch(logIn({ email: user.email, name: user.displayName }));
-    } catch (error) {
-      console.error('Google sign-in error:', error);
-    }
-  };
+  // const handleGoogleSignIn = async () => {
+  //   try {
+  //     const result = await signInWithPopup(auth, googleProvider);
+  //     const user = result.user;
+  //     dispatch(logIn({ email: user.email, name: user.displayName }));
+  //   } catch (error) {
+  //     console.error('Google sign-in error:', error);
+  //   }
+  // };
 
   return (
     <>
@@ -101,14 +113,8 @@ const Home = () => {
                 <legend className={css.firstFormParagraph}>
                   You can log in with your Google Account:
                 </legend>
-                <button
-                  className={css.googleButton}
-                  type="button"
-                  onClick={handleGoogleSignIn}
-                >
-                  <img src={googleIcon} alt="google" />
-                  Google
-                </button>
+                {/* button */}
+                <GoogleButton />
               </fieldset>
               <fieldset className={css.fieldset}>
                 <legend className={css.secondFormParagraph}>
