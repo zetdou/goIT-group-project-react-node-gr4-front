@@ -2,7 +2,7 @@ name: Sync Fork
 
 on:
   schedule:
-    - cron: '0 */6 * * *' # Uruchamia co 6 godzin
+    - cron: '*/30 * * * *' # Uruchamia co 6 godzin
   workflow_dispatch: # Pozwala na ręczne uruchomienie
 
 jobs:
