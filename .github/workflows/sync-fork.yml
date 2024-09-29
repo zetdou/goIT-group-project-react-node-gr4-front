@@ -11,25 +11,23 @@ jobs:
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v3
-
-      - name: Set up Node.js 20
-        uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          fetch-depth: 0 # Pobrać pełną historię repozytorium
 
       - name: Set up Git
         run: |
-          git config --global user.name "PiotrKarys"
+          git config --global user.name "PiotrKarys"  # Twoje imię użytkownika
+          git config --global user.email "your-email@example.com"  # Twój email GitHub (noreply lub właściwy)
 
       - name: Add upstream repository
-        run:
-          git remote add upstream
-          https://github.com/zetdou/goIT-group-project-react-node-gr4-front.git
+        run: git remote add upstream https://github.com/zetdou/goIT-group-project-react-node-gr4-front.git
 
       - name: Fetch upstream changes
         run: git fetch upstream
 
-      - name: Merge upstream changes with force
+      - name: Merge upstream changes
         run: |
-          git merge upstream/main --allow-unrelated-histories
-          git push origin main --force
+          git merge upstream/main --allow-unrelated-histories --no-edit || true
+
+      - name: Push changes to your fork
+        run: git push origin main --force
