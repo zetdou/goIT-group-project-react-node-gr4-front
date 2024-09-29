@@ -2,12 +2,8 @@ name: Sync Fork
 
 on:
   schedule:
-    - cron: '*/30 * * * *' # Uruchamia co 6 godzin
-  workflow_dispatch: # Pozwala na ręczne uruchomienie
-  
-permissions:
-  contents: write
-  
+    - cron: '0 */6 * * *' # Uruchamia co 6 godzin
+  workflow_dispatch: # Pozwala na ręczne uruchomienie  
 jobs:
   sync:
     runs-on: ubuntu-latest
