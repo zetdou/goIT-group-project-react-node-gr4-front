@@ -12,12 +12,11 @@ import {
 import storage from 'redux-persist/lib/storage';
 import { authReducer } from '../redux/Users/AuthSlice';
 import { reportReducer } from './Report/ReportSlice';
-// import other slices
 
 const authPersistConfig = {
   key: 'auth',
   storage,
-  whitelist: ['token'], // to only persist the token, check out if need / don't want (blacklist) anything else
+  whitelist: ['accesstToken', 'refreshToken', 'sid'],
 };
 
 export const store = configureStore({

@@ -17,7 +17,8 @@ const Balance = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    balanceValue = e.target.balance.value;
+    const balanceValue = e.target.balance.value;
+    console.log('Balance to update:', balanceValue);
     dispatch(updateBalance(balanceValue));
     form.current.reset();
   };
