@@ -46,9 +46,9 @@
 @media (min-width: 768px) {
   .userMenuWrapper {
     justify-content: space-between;
-    width: 170px;
+    width: 170px; /* width: auto; */
     height: 36px;
-    gap: 0px;
+    gap: 0px; /* gap: 12px; */
   }
 
   .usernameText {
@@ -57,7 +57,8 @@
 
   .userMenuRectangle {
     display: block;
-    width: 1px;
+    width: 1px; /* width: 3px; */
+    /* border-radius: 15%; */
     height: 36px;
     background: var(--color-lightgray);
   }
