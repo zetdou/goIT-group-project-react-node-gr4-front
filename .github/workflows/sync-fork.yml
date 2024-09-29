@@ -4,7 +4,10 @@ on:
   schedule:
     - cron: '*/30 * * * *' # Uruchamia co 6 godzin
   workflow_dispatch: # Pozwala na ręczne uruchomienie
-
+  
+permissions:
+  contents: write
+  
 jobs:
   sync:
     runs-on: ubuntu-latest
