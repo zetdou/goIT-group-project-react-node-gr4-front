@@ -25,9 +25,9 @@ export const UserMenu = () => {
   return (
     <nav className={css.userMenuWrapper}>
       <div className={css.userMenuAvatar}>
-        <p className={css.userMenuLetter}>U</p>
+        <p className={css.userMenuLetter}>{user.email.charAt(0).toUpperCase()}</p>
       </div>
-      <p className={css.usernameText}>user</p>
+      <p className={css.usernameText}>{user.email}</p>
       <div className={css.userMenuRectangle}></div>
       <button className={css.userMenuLogout} onClick={handleLogoutClick}>
         <svg
