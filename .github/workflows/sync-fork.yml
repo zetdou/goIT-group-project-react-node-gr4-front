@@ -2,7 +2,8 @@ name: Sync Fork
 
 on:
   schedule:
-    - cron: '*/30 * * * *' # Uruchamia co 30 minut
+    - cron: '0 */6 * * *' # Uruchamia co 6 godzin
+  workflow_dispatch: # Pozwala na ręczne uruchomienie
 
 jobs:
   sync:
@@ -12,22 +13,25 @@ jobs:
       - name: Checkout the repo
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0 # Pobrać pełną historię repozytorium
+          fetch-depth: 0 # Pobiera pełną historię
 
-      - name: Set up Git
+      - name: Configure Git
         run: |
-          git config --global user.name "PiotrKarys"  # Twoje imię użytkownika
-          git config --global user.email "your-email@example.com"  # Twój email GitHub (noreply lub właściwy)
+          git config user.name github-actions
+          git config user.email github-actions@github.com
 
       - name: Add upstream repository
-        run: git remote add upstream https://github.com/zetdou/goIT-group-project-react-node-gr4-front.git
+        run: |
+          git remote add upstream https://github.com/zetdou/goIT-group-project-react-node-gr4-front.git
 
       - name: Fetch upstream changes
-        run: git fetch upstream
+        run: |
+          git fetch upstream
 
       - name: Merge upstream changes
         run: |
-          git merge upstream/main --allow-unrelated-histories --no-edit || true
+          git merge upstream/main --allow-unrelated-histories
 
-      - name: Push changes to your fork
-        run: git push origin main --force
+      - name: Push changes
+        run: |
+          git push origin main
