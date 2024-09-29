@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import useReport  from '../../hooks/useReport';
-import iconTool  from '../IconsAsComponents/IconsAsComponents';
+import useReport from '../../hooks/useReport';
+import iconTool from '../IconsAsComponents/IconsAsComponents';
 
 const CategoryList = ({ currentView }) => {
   const [categoryData, setCategoryData] = useState([]);
