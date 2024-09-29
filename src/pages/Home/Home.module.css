@@ -158,7 +158,9 @@
   letter-spacing: 0.02em;
   padding: 15px 0;
   text-transform: uppercase;
-  transition: background-color 200ms ease, box-shadow 200ms ease,
+  transition:
+    background-color 200ms ease,
+    box-shadow 200ms ease,
     color 200ms ease;
   width: 100%;
 }

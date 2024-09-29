@@ -11,8 +11,8 @@ import { NotFound } from '../pages/NotFound/NotFound';
 
 // import pages like this
 const Home = lazy(() => import('../pages/Home/Home'));
-const TransactionPage = lazy(() =>
-  import('../pages/Transactions/Transactions')
+const TransactionPage = lazy(
+  () => import('../pages/Transactions/Transactions')
 );
 const Expenses = lazy(() => import('./Expenses/Expenses'));
 const Incomes = lazy(() => import('./Incomes/Incomes'));

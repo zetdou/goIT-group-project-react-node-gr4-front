@@ -1,76 +1,74 @@
 .userMenuWrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 .userMenuAvatar {
-    background: var(--color-lightgray);
-    height: 32px;
-    width: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background: var(--color-lightgray);
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .usernameText {
-    display: none;
+  display: none;
 }
 
 .userMenuLetter {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 .userMenuRectangle {
-    display: none;
+  display: none;
 }
 
 .userMenuLogout {
-    cursor: pointer;
-    background: none;
-    border-style: none;
+  cursor: pointer;
+  background: none;
+  border-style: none;
 }
 
 .logoutIcon {
-    background: url(../../images/icons/logout.svg);
-    width: 16px;
-    height: 16px;
+  background: url(../../images/icons/logout.svg);
+  width: 16px;
+  height: 16px;
 }
 
 .logoutText {
-    display: none;
+  display: none;
 }
 
 @media (min-width: 768px) {
+  .userMenuWrapper {
+    justify-content: space-between;
+    width: 170px; /* width: auto; */
+    height: 36px;
+    gap: 0px; /* gap: 12px; */
+  }
 
-    .userMenuWrapper {
-        justify-content: space-between;
-        width: auto;
-        height: 36px;
-        gap: 12px;
-    }
+  .usernameText {
+    display: block;
+  }
 
-    .usernameText {
-        display: block;
-    }
+  .userMenuRectangle {
+    display: block;
+    width: 1px; /* width: 3px; */
+    /* border-radius: 15%; */
+    height: 36px;
+    background: var(--color-lightgray);
+  }
 
-    .userMenuRectangle {
-        display: block;
-        width: 3px;
-        border-radius: 15%;
-        height: 36px;
-        background: var(--color-lightgray);
-    }
+  .logoutIcon {
+    display: none;
+  }
 
-    .logoutIcon {
-        display: none;
-    }
-
-    .logoutText {
-        display: block;
-        text-decoration: underline;
-    }
-    
+  .logoutText {
+    display: block;
+    text-decoration: underline;
+  }
 }

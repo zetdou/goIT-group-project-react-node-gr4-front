@@ -1,0 +1,133 @@
+
+.transactionContainer {
+  padding: 10px;
+}
+
+.transactionHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.datePicker {
+  display: flex;
+  align-items: center;
+}
+
+.dateInput {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.calendarButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.calendarIcon {
+  background: url(../../images/icons/calendar.svg) no-repeat center;
+  background-size: 20px;
+  width: 32px;
+  height: 32px;
+}
+
+.inputFields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inputFields input,
+.inputFields select {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.inputFields input[type="number"] {
+  background: url(../../images/icons/calculator.svg) no-repeat right 10px center;
+  background-size: 20px;
+  padding-right: 35px;
+  width: 100%;
+}
+
+.transactionButtons {
+  display: flex;
+  gap: 10px;
+}
+
+.inputBtn,
+.clearBtn {
+  flex: 1;
+  padding: 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.inputBtn {
+  background-color: #ff7f00;
+  color: white;
+}
+
+.clearBtn {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.transactionTable {
+  margin-top: 20px;
+}
+
+.transactionTable table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.transactionTable th,
+.transactionTable td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Punkty przerwania dla responsywności */
+
+@media (min-width: 768px) {
+  .transactionHeader {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .inputFields {
+    flex-direction: row;
+    gap: 15px;
+  }
+
+  .transactionButtons {
+    justify-content: flex-end;
+  }
+}
+
+@media (min-width: 1280px) {
+  .transactionContainer {
+    padding: 20px;
+  }
+
+  .transactionTable th,
+  .transactionTable td {
+    padding: 15px;
+  }
+
+  .inputFields input,
+  .inputFields select {
+    padding: 15px;
+    font-size: 1.2rem;
+  }
+}

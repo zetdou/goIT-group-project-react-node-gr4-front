@@ -1,11 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { getTransactionsData } from "./ReportOperations";
+import { createSlice } from '@reduxjs/toolkit';
+import { getTransactionsData } from './ReportOperations';
 
 const initialState = {
-    loadingReports: false,
-    incomes: {},
-    expenses: {},
-}
+  loadingReports: false,
+  incomes: {},
+  expenses: {},
+};
 
 const reportSlice = createSlice({
   name: 'reports',
@@ -13,15 +13,15 @@ const reportSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(getTransactionsData.pending, state => {
-        state.loadingReports = true; 
+        state.loadingReports = true;
       })
       .addCase(getTransactionsData.fulfilled, (state, action) => {
         state.loadingReports = false;
-        state.incomes = action.payload.incomes; 
-        state.expenses = action.payload.expenses; 
+        state.incomes = action.payload.incomes;
+        state.expenses = action.payload.expenses;
       })
       .addCase(getTransactionsData.rejected, state => {
-        state.loadingReports = false; 
+        state.loadingReports = false;
       });
   },
 });
