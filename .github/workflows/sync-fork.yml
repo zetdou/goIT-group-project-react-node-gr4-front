@@ -12,16 +12,19 @@ jobs:
       - name: Checkout the repo
         uses: actions/checkout@v3
 
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
       - name: Set up Git
         run: |
-          git config --global user.name "Your GitHub Username"
-          git config --global user.email "your-email@example.com"
+          git config --global user.name "PiotrKarys"
 
       - name: Add upstream repository
         run:
           git remote add upstream
           https://github.com/zetdou/goIT-group-project-react-node-gr4-front.git
-        # Oryginalne repozytorium
 
       - name: Fetch upstream changes
         run: git fetch upstream
@@ -30,5 +33,6 @@ jobs:
         run: git merge upstream/main
 
       - name: Push changes to your fork
-        run: |
-          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: git push origin main
