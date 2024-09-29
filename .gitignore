@@ -27,6 +27,9 @@ lib-cov
 coverage
 *.lcov
 
+# Ignorowanie folderu .github
+.github/
+
 # nyc test coverage
 .nyc_output
 
