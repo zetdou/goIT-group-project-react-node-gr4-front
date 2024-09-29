@@ -16,7 +16,6 @@ import { ReactComponent as SmallArrowRight } from '../../images/icons/right.svg'
 import { ReactComponent as ArrowLeft } from '../../images/icons/back.svg';
 import { ReactComponent as ArrowRight } from '../../images/icons/right.svg';
 
-
 const iconTool = {
   addIncome: <AddIncome />,
   alcohol: <AlcoholIcon />,
@@ -34,7 +33,7 @@ const iconTool = {
   smallArrowLeft: <SmallArrowLeft />,
   smallArrowRight: <SmallArrowRight />,
   arrowLeft: <ArrowLeft />,
-  arrowRight: <ArrowRight />
+  arrowRight: <ArrowRight />,
 };
 
 export default iconTool;

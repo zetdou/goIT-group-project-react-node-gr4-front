@@ -1,0 +1,26 @@
+.incomeItem td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .sum {
+    color: green;
+  }
+  
+  .deleteButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  .deleteIcon {
+    background: url(../../images/icons/delete.svg) no-repeat center;
+    background-size: 16px;
+    width: 32px;
+    height: 32px;
+  }
+  
+  .deleteButton:hover .deleteIcon {
+    background-color: rgba(255, 0, 0, 0.1);
+  }

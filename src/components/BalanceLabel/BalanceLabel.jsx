@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import useReport from '../../hooks/useReport';
 import { getTransactionsData } from '../../redux/Report/ReportOperations';
-import css from "./BalanceLabel.module.css"
+import css from './BalanceLabel.module.css';
 
 const BalanceLabel = () => {
   const dispatch = useDispatch();
