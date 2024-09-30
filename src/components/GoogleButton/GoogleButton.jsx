@@ -13,7 +13,7 @@ export const GoogleButton = () => {
       console.log('Login Failed');
     },
     ux_mode: 'redirect',
-    redirect_uri: 'https://kapustaapp.vercel.app/',
+    redirect_uri: 'https://localhost:3000',
   });
 
   const handleClick = e => {
