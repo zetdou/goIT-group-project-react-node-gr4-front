@@ -8,18 +8,17 @@ export const GoogleButton = () => {
   const login = useGoogleLogin({
     onSuccess: credentialResponse => {
       console.log('Success:', credentialResponse);
-      // Handle successful login
     },
     onError: () => {
       console.log('Login Failed');
     },
-    ux_mode: 'redirect', // Make sure this is set
-    redirect_uri: 'http://localhost:3000', // Make sure this matches your Google Cloud credentials
+    ux_mode: 'redirect',
+    redirect_uri: 'https://kapustaapp.vercel.app/',
   });
 
   const handleClick = e => {
     e.preventDefault();
-    login(); // Trigger Google login
+    login();
   };
 
   return (
