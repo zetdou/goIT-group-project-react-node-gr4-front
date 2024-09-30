@@ -1,0 +1,80 @@
+/* Kontener całej aplikacji */
+.appContainer {
+    min-width: 320px;
+    max-width: 1280px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin: 0 auto;
+  }
+  
+  /* Stylizacja zakładek (Expenses, Income) */
+  .tabs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .tabButton {
+    flex: 1;
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1rem;
+  }
+  
+  .active {
+    background-color: #ff7f00;
+    color: white;
+  }
+  
+  /* Treść zakładki */
+  .tabContent {
+    margin-top: 20px;
+  }
+  
+  /* Punkty przerwania dla responsywności */
+  
+  /* Widok mobilny */
+  @media (max-width: 767px) {
+    .tabs {
+      flex-direction: row;
+      justify-content: space-around;
+    }
+  
+    .tabButton {
+      padding: 10px;
+      font-size: 1rem;
+    }
+  }
+  
+  /* Widok tabletowy */
+  @media (min-width: 768px) and (max-width: 1279px) {
+    .tabs {
+      justify-content: center;
+      gap: 10px;
+    }
+  
+    .tabButton {
+      font-size: 1.1rem;
+    }
+  }
+  
+  /* Widok desktopowy */
+  @media (min-width: 1280px) {
+    .tabs {
+      justify-content: center;
+      gap: 20px;
+    }
+  
+    .tabButton {
+      padding: 15px 30px;
+      font-size: 1.2rem;
+    }
+  
+    .tabContent {
+      padding: 20px;
+    }
+  }

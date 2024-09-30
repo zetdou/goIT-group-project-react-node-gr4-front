@@ -1,26 +1,51 @@
-.expensesItem td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+/* Styl dla elementu listy w widoku mobilnym */
+.mobileItem {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  margin-bottom: 10px;
+}
+
+.mobileItem p {
+  margin: 5px 0;
+}
+
+/* Stylizacja tabeli w widoku desktopowym */
+.desktopItem td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.sum {
+  color: red;
+}
+
+/* Przyciski */
+.deleteButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.deleteIcon {
+  background: url(../../images/icons/delete.svg) no-repeat center;
+  background-size: 16px;
+  width: 32px;
+  height: 32px;
+}
+
+/* Punkty przerwania */
+
+/* Widok tabletowy i desktopowy */
+@media (min-width: 768px) {
+  .mobileItem {
+    display: none; /* Ukryj widok listy w widoku tabletowym i desktopowym */
   }
-  
-  .sum {
-    color: red;
+
+  .desktopItem {
+    display: table-row; /* Wyświetl tabelę w widoku tabletowym i desktopowym */
   }
-  
-  .deleteButton {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-  }
-  
-  .deleteIcon {
-    background: url(../../images/icons/delete.svg) no-repeat center;
-    background-size: 16px;
-    width: 32px;
-    height: 32px;
-  }
-  
-  .deleteButton:hover .deleteIcon {
-    background-color: rgba(255, 0, 0, 0.1);
-  }
+}
