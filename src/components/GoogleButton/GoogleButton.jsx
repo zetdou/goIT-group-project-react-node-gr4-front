@@ -12,8 +12,8 @@ export const GoogleButton = () => {
     onError: () => {
       console.log('Login Failed');
     },
-    ux_mode: 'redirect', // Make sure this is set
-    redirect_uri: 'http://localhost:3000', // Make sure this matches your Google Cloud credentials
+    ux_mode: 'redirect',
+    redirect_uri: 'https://localhost:3000',
   });
 
   const handleClick = e => {
