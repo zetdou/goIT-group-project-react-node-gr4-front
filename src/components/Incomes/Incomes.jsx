@@ -1,40 +1,104 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import IncomeItem from '../IncomesItem/IncomesItem';
 import css from './Incomes.module.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const Income = () => {
-  const [incomes, setIncomes] = useState([]);
+  const [incomes, setIncomes] = useState([]); 
+  const [incomeCategories, setIncomeCategories] = useState([]); 
+  const [monthStats, setMonthStats] = useState({}); 
   const [newIncome, setNewIncome] = useState({
     date: new Date(),
     description: '',
     category: '',
-    sum: ''
+    sum: '',
   });
 
-  const handleInputChange = (e) => {
+  
+  const fetchTransactions = async () => {
+    try {
+      const response = await axios.get('/transaction/income'); 
+      setIncomes(response.data.incomes); 
+      setMonthStats(response.data.monthStats); 
+    } catch (error) {
+      console.error('Błąd podczas pobierania transakcji:', error);
+    }
+  };
+
+  
+  const fetchIncomeCategories = async () => {
+    try {
+      const response = await axios.get('/transaction/income-categories');
+      console.log('Income categories:', response.data);
+      setIncomeCategories(response.data);
+    } catch (error) {
+      console.error('Błąd podczas pobierania kategorii przychodów:', error);
+    }
+  };
+
+  
+  useEffect(() => {
+    fetchTransactions(); 
+    fetchIncomeCategories(); 
+  }, []);
+
+  
+  const handleInputChange = e => {
     const { name, value } = e.target;
     setNewIncome({ ...newIncome, [name]: value });
   };
 
-  const handleDateChange = (date) => {
-    setNewIncome({ ...newIncome, date });
+  
+  const addIncome = async () => {
+    try {
+      const formattedIncome = {
+        description: newIncome.description,
+        amount: parseFloat(newIncome.sum), 
+        date: newIncome.date.toISOString(), 
+        category: [newIncome.category], 
+      };
+
+      console.log('Wysyłam dane do backendu:', formattedIncome);
+
+      
+      await axios.post('/transaction/income', formattedIncome);
+
+      
+      fetchTransactions(); 
+
+      
+      setNewIncome({
+        date: new Date(),
+        description: '',
+        category: '',
+        sum: '',
+      });
+    } catch (error) {
+      console.error(
+        'Błąd podczas dodawania przychodu:',
+        error.response?.data || error.message
+      );
+    }
   };
 
-  const addIncome = () => {
-    setIncomes([...incomes, newIncome]);
-    setNewIncome({
-      date: new Date(),
-      description: '',
-      category: '',
-      sum: ''
-    });
-  };
+ 
+  const deleteIncome = async (transactionId, index) => {
+    try {
+      await axios.delete(`/transaction/${transactionId}`);
 
-  const handleDelete = (index) => {
-    const newIncomes = incomes.filter((_, i) => i !== index);
-    setIncomes(newIncomes);
+      const updatedIncomes = incomes.filter((_, i) => i !== index);
+      setIncomes(updatedIncomes);
+
+      console.log('Transakcja usunięta:', transactionId);
+      fetchTransactions(); 
+    } catch (error) {
+      console.error(
+        'Błąd podczas usuwania przychodu:',
+        error.response?.data || error.message
+      );
+    }
   };
 
   return (
@@ -42,8 +106,8 @@ const Income = () => {
       <div className={css.transactionHeader}>
         <div className={css.datePicker}>
           <DatePicker
-            selected={newIncome.date}
-            onChange={handleDateChange}
+            selected={newIncome.date} 
+            onChange={date => setNewIncome({ ...newIncome, date })} 
             dateFormat="yyyy/MM/dd"
             className={css.dateInput}
             showPopperArrow={false}
@@ -65,10 +129,18 @@ const Income = () => {
             value={newIncome.category}
             onChange={handleInputChange}
           >
-            {/* Kategorie 
-            <option value="">Income category</option>
-            <option value="Salary">Salary</option>
-            <option value="Freelance">Freelance</option> */}
+            <option value="" disabled>Select income category</option>
+            {Array.isArray(incomeCategories) && incomeCategories.length > 0 ? (
+              incomeCategories.map((category, index) => (
+                <option key={index} value={category}>
+                  {category}
+                </option>
+              ))
+            ) : (
+              <option value="" disabled>
+                Loading categories...
+              </option>
+            )}
           </select>
           <input
             type="number"
@@ -79,15 +151,25 @@ const Income = () => {
           />
         </div>
         <div className={css.transactionButtons}>
-          <button className={css.inputBtn} onClick={addIncome}>INPUT</button>
-          <button className={css.clearBtn} onClick={() => setNewIncome({
-            date: new Date(),
-            description: '',
-            category: '',
-            sum: ''
-          })}>CLEAR</button>
+          <button className={css.inputBtn} onClick={addIncome}>
+            INPUT
+          </button>
+          <button
+            className={css.clearBtn}
+            onClick={() =>
+              setNewIncome({
+                date: new Date(),
+                description: '',
+                category: '',
+                sum: '',
+              })
+            }
+          >
+            CLEAR
+          </button>
         </div>
       </div>
+
       <div className={css.transactionTable}>
         <table>
           <thead>
@@ -102,16 +184,27 @@ const Income = () => {
           <tbody>
             {incomes.map((income, index) => (
               <IncomeItem
-                key={index}
-                date={income.date.toLocaleDateString()}
+                key={income._id} 
+                date={income.date}
                 description={income.description}
-                category={income.category}
-                sum={income.sum}
-                onDelete={() => handleDelete(index)}
+                category={income.category.join(', ')} 
+                sum={income.amount}
+                onDelete={() => deleteIncome(income._id, index)} 
               />
             ))}
           </tbody>
         </table>
+      </div>
+      
+      <div className={css.monthStats}>
+        <h3>Month Stats</h3>
+        <ul>
+          {Object.keys(monthStats).map(month => (
+            <li key={month}>
+              {month}: {monthStats[month]}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

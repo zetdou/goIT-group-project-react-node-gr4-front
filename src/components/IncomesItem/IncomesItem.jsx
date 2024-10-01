@@ -7,7 +7,7 @@ const IncomeItem = ({ date, description, category, sum, onDelete }) => {
       <td>{date}</td>
       <td>{description}</td>
       <td>{category}</td>
-      <td className={css.sum}>{sum} UAH</td>
+      <td className={css.sum}>{sum} PLN</td>
       <td>
         <button className={css.deleteButton} onClick={onDelete}>
           <svg className={css.deleteIcon}></svg>

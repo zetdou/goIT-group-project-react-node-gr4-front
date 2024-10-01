@@ -97,8 +97,6 @@
   border-bottom: 1px solid #ddd;
 }
 
-/* Punkty przerwania dla responsywności */
-
 @media (min-width: 768px) {
   .transactionHeader {
     flex-direction: row;

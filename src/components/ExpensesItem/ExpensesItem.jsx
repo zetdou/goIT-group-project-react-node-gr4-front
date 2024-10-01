@@ -7,7 +7,7 @@ const ExpensesItem = ({ date, description, category, sum, onDelete }) => {
       <td>{date}</td>
       <td>{description}</td>
       <td>{category}</td>
-      <td className={css.sum}>{sum} UAH</td>
+      <td className={css.sum}>-{Math.abs(sum)} PLN</td>
       <td>
         <button className={css.deleteButton} onClick={onDelete}>
           <svg className={css.deleteIcon}></svg>
@@ -18,3 +18,4 @@ const ExpensesItem = ({ date, description, category, sum, onDelete }) => {
 };
 
 export default ExpensesItem;
+
