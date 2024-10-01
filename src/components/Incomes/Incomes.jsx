@@ -170,18 +170,6 @@ const Income = () => {
         </div>
       </div>
 
-      {/* Statystyki miesięczne */}
-      <div className={css.monthStats}>
-        <h3>Month Stats</h3>
-        <ul>
-          {Object.keys(monthStats).map(month => (
-            <li key={month}>
-              {month}: {monthStats[month]}
-            </li>
-          ))}
-        </ul>
-      </div>
-
       <div className={css.transactionTable}>
         <table>
           <thead>
@@ -206,6 +194,17 @@ const Income = () => {
             ))}
           </tbody>
         </table>
+      </div>
+      {/* Statystyki miesięczne */}
+      <div className={css.monthStats}>
+        <h3>Month Stats</h3>
+        <ul>
+          {Object.keys(monthStats).map(month => (
+            <li key={month}>
+              {month}: {monthStats[month]}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
