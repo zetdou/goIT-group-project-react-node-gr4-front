@@ -1,80 +1,88 @@
 /* Kontener całej aplikacji */
 .appContainer {
-    min-width: 320px;
-    max-width: 1280px;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    margin: 0 auto;
+  min-width: 320px;
+  max-width: 1280px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+/* Główna zawartość */
+.mainContent {
+  flex: 1;
+  margin-top: 20px;
+}
+
+/* Stylizacja zakładek (Expenses, Income) w stopce */
+.tabsFooter {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.tabButton {
+  flex: 1;
+  padding: 15px;
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  font-size: 1rem;
+  border-radius: 8px; /* Dodano zaokrąglone rogi */
+  transition: background-color 0.3s ease;
+}
+
+.tabButton:hover {
+  background-color: #ddd;
+}
+
+.active {
+  background-color: #ff7f00;
+  color: white;
+}
+
+/* Punkty przerwania dla responsywności */
+
+/* Widok mobilny */
+@media (max-width: 767px) {
+  .tabsFooter {
+    flex-direction: row;
+    justify-content: space-around;
   }
-  
-  /* Stylizacja zakładek (Expenses, Income) */
-  .tabs {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  
+
   .tabButton {
-    flex: 1;
-    padding: 10px 20px;
-    background-color: #f0f0f0;
-    border: none;
-    cursor: pointer;
-    text-align: center;
     font-size: 1rem;
   }
-  
-  .active {
-    background-color: #ff7f00;
-    color: white;
+}
+
+/* Widok tabletowy */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .tabsFooter {
+    justify-content: center;
+    gap: 10px;
   }
-  
-  /* Treść zakładki */
-  .tabContent {
-    margin-top: 20px;
+
+  .tabButton {
+    font-size: 1.1rem;
+    padding: 15px 30px;
   }
-  
-  /* Punkty przerwania dla responsywności */
-  
-  /* Widok mobilny */
-  @media (max-width: 767px) {
-    .tabs {
-      flex-direction: row;
-      justify-content: space-around;
-    }
-  
-    .tabButton {
-      padding: 10px;
-      font-size: 1rem;
-    }
+}
+
+/* Widok desktopowy */
+@media (min-width: 1280px) {
+  .tabsFooter {
+    justify-content: center;
+    gap: 20px;
   }
-  
-  /* Widok tabletowy */
-  @media (min-width: 768px) and (max-width: 1279px) {
-    .tabs {
-      justify-content: center;
-      gap: 10px;
-    }
-  
-    .tabButton {
-      font-size: 1.1rem;
-    }
+
+  .tabButton {
+    font-size: 1.2rem;
+    padding: 15px 30px;
   }
-  
-  /* Widok desktopowy */
-  @media (min-width: 1280px) {
-    .tabs {
-      justify-content: center;
-      gap: 20px;
-    }
-  
-    .tabButton {
-      padding: 15px 30px;
-      font-size: 1.2rem;
-    }
-  
-    .tabContent {
-      padding: 20px;
-    }
+
+  .mainContent {
+    padding: 20px;
   }
+}

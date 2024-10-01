@@ -1,0 +1,135 @@
+/* Kontener balance */
+.balanceContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Formularz balance */
+.balanceForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Dopasowano wyrównanie dla inputa i przycisku */
+  width: 100%;
+}
+
+.balanceLabel {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Ułożenie inputa i przycisku w jednej linii */
+.inputWrapper {
+  display: flex;
+  align-items: center; /* Umożliwia ustawienie przycisku i inputa w jednej linii */
+  gap: 10px; /* Odstęp między inputem a przyciskiem */
+  position: relative;
+}
+
+/* Stylizacja inputa */
+.balanceInput {
+  padding: 12px 15px;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 150px; /* Dopasowano szerokość inputa */
+  text-align: center;
+  transition: color 0.3s;
+}
+
+/* Przycisk confirm */
+.confirmButton {
+  padding: 12px 24px;
+  background-color: #FF6B00;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.confirmButton:hover {
+  background-color: #FF7F26;
+}
+
+/* Stylizacja tooltipa */
+.tooltip {
+  position: absolute;
+  top: 60px; /* Umieszczono tooltip poniżej inputa */
+  left: 0;
+  background-color: #0E2A47;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 0.9rem;
+  width: 100%;
+  max-width: 320px;
+  text-align: center;
+}
+
+.tooltipText {
+  margin: 0;
+  padding: 0;
+  font-size: 0.95rem;
+  line-height: 1.5rem;
+}
+
+/* Mobile-first stylizacja (max-width 767px) */
+@media (max-width: 767px) {
+  .balanceInput {
+    max-width: 120px;
+    font-size: 1rem;
+  }
+
+  .confirmButton {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  .tooltip {
+    max-width: 90vw;
+    top: 50px; /* Dostosowanie pozycji tooltipa dla mniejszych ekranów */
+  }
+}
+
+/* Tablet (768px - 1279px) */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .balanceInput {
+    max-width: 200px;
+    font-size: 1.1rem;
+  }
+
+  .confirmButton {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+
+  .tooltip {
+    top: 60px;
+    max-width: 300px;
+  }
+}
+
+/* Desktop (1280px i wyżej) */
+@media (min-width: 1280px) {
+  .balanceInput {
+    max-width: 250px;
+    font-size: 1.2rem;
+  }
+
+  .confirmButton {
+    padding: 14px 28px;
+    font-size: 1.1rem;
+  }
+
+  .tooltip {
+    top: 60px; /* Poniżej inputa */
+    max-width: 320px;
+  }
+}
