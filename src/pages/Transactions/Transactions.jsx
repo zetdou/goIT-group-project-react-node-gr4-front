@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Balance from '../../components/Balance/Balance'
-import Expenses from '../../components/ExpensesForm/ExpensesForm';
+import Expenses from '../../components/Expenses/Expenses';
 import Income from '../../components/Incomes/Incomes';
 import css from './Trasactions.module.css'
 

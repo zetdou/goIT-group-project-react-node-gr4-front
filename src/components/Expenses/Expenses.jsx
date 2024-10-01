@@ -1,67 +1,214 @@
-import React, { useState } from 'react';
-import ExpensesForm from '../../components/ExpensesForm/ExpensesForm';
-import ExpensesList from '../../components/ExpensesList/ExpensesList';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import ExpenseItem from '../ExpensesItem/ExpensesItem';
 import css from './Expenses.module.css';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
-const Expenses = () => {
-    // Inicjalizacja stanu newExpense
-    const [newExpense, setNewExpense] = useState({
-      date: new Date(),
-      description: '',
-      category: '',
-      sum: ''
-    });
+const Expense = () => {
+  const [expenses, setExpenses] = useState([]); 
+  const [expenseCategories, setExpenseCategories] = useState([]); 
+  const [monthStats, setMonthStats] = useState({}); 
+  const [newExpense, setNewExpense] = useState({
+    date: new Date(),
+    description: '',
+    category: '',
+    sum: '',
+  });
+
   
-    const [expenses, setExpenses] = useState([]);
+  const fetchTransactions = async () => {
+    try {
+      const response = await axios.get('/transaction/expense'); 
+      setExpenses(response.data.expenses); 
+      setMonthStats(response.data.monthStats); 
+    } catch (error) {
+      console.error('Błąd podczas pobierania transakcji wydatków:', error);
+    }
+  };
+
   
-    // Funkcja do aktualizacji pól formularza
-    const handleInputChange = (e) => {
-      console.log(`${e.target.name}: ${e.target.value}`);
-      const { name, value } = e.target;
-      setNewExpense({ ...newExpense, [name]: value });
-    };
+  const fetchExpenseCategories = async () => {
+    try {
+      const response = await axios.get('/transaction/expense-categories');
+      console.log('Expense categories:', response.data);
+      setExpenseCategories(response.data);
+    } catch (error) {
+      console.error('Błąd podczas pobierania kategorii wydatków:', error);
+    }
+  };
+
   
-    // Funkcja do aktualizacji daty
-    const handleDateChange = (date) => {
-      setNewExpense({ ...newExpense, date });
-    };
+  useEffect(() => {
+    fetchTransactions(); 
+    fetchExpenseCategories();
+  }, []);
+
   
-    // Dodajemy nowy wydatek do listy
-    const addExpense = () => {
-      setExpenses([...expenses, newExpense]);
-      // Resetowanie formularza po dodaniu wydatku
+  const handleInputChange = e => {
+    const { name, value } = e.target;
+    setNewExpense({ ...newExpense, [name]: value });
+  };
+
+  
+  const addExpense = async () => {
+    try {
+      const formattedExpense = {
+        description: newExpense.description,
+        amount: parseFloat(newExpense.sum), 
+        date: newExpense.date.toISOString(), 
+        category: [newExpense.category], 
+      };
+
+      console.log('Wysyłam dane do backendu:', formattedExpense);
+
+      
+      await axios.post('/transaction/expense', formattedExpense);
+
+      
+      fetchTransactions(); 
+
+      
       setNewExpense({
         date: new Date(),
         description: '',
         category: '',
-        sum: ''
+        sum: '',
       });
-    };
-  
-    // Funkcja do usunięcia wydatku
-    const handleDelete = (index) => {
-      const newExpenses = expenses.filter((_, i) => i !== index);
-      setExpenses(newExpenses);
-    };
-  
-    return (
-      <div className={css.transactionContainer}>
-        {/* Przekazujemy stan newExpense i funkcje jako propsy */}
-        <ExpensesForm
-          newExpense={newExpense}
-          handleInputChange={handleInputChange}
-          handleDateChange={handleDateChange}
-          addExpense={addExpense}
-          clearForm={() => setNewExpense({
-            date: new Date(),
-            description: '',
-            category: '',
-            sum: ''
-          })}
-        />
-        <ExpensesList expenses={expenses} handleDelete={handleDelete} />
-      </div>
-    );
+    } catch (error) {
+      console.error(
+        'Błąd podczas dodawania wydatku:',
+        error.response?.data || error.message
+      );
+    }
   };
+
   
-  export default Expenses;
+  const deleteExpense = async (transactionId, index) => {
+    try {
+      await axios.delete(`/transaction/${transactionId}`);
+
+      const updatedExpenses = expenses.filter((_, i) => i !== index);
+      setExpenses(updatedExpenses);
+
+      console.log('Transakcja usunięta:', transactionId);
+      fetchTransactions(); 
+    } catch (error) {
+      console.error(
+        'Błąd podczas usuwania wydatku:',
+        error.response?.data || error.message
+      );
+    }
+  };
+
+  return (
+    <div className={css.transactionContainer}>
+      <div className={css.transactionHeader}>
+        <div className={css.datePicker}>
+          <DatePicker
+            selected={newExpense.date} 
+            onChange={date => setNewExpense({ ...newExpense, date })} 
+            dateFormat="yyyy/MM/dd"
+            className={css.dateInput}
+            showPopperArrow={false}
+          />
+          <button className={css.calendarButton}>
+            <svg className={css.calendarIcon}></svg>
+          </button>
+        </div>
+        <div className={css.inputFields}>
+          <input
+            type="text"
+            placeholder="Expense description"
+            name="description"
+            value={newExpense.description}
+            onChange={handleInputChange}
+          />
+          <select
+            name="category"
+            value={newExpense.category}
+            onChange={handleInputChange}
+          >
+            <option value="" disabled>Select expense category</option>
+            {Array.isArray(expenseCategories) &&
+            expenseCategories.length > 0 ? (
+              expenseCategories.map((category, index) => (
+                <option key={index} value={category}>
+                  {category}
+                </option>
+              ))
+            ) : (
+              <option value="" disabled>
+                Loading categories...
+              </option>
+            )}
+          </select>
+          <input
+            type="number"
+            placeholder="0.00 ZŁ"
+            name="sum"
+            value={newExpense.sum}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className={css.transactionButtons}>
+          <button className={css.inputBtn} onClick={addExpense}>
+            INPUT
+          </button>
+          <button
+            className={css.clearBtn}
+            onClick={() =>
+              setNewExpense({
+                date: new Date(),
+                description: '',
+                category: '',
+                sum: '',
+              })
+            }
+          >
+            CLEAR
+          </button>
+        </div>
+      </div>
+
+      <div className={css.transactionTable}>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th>Sum</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {expenses.map((expense, index) => (
+              <ExpenseItem
+                key={expense._id} 
+                date={expense.date}
+                description={expense.description}
+                category={expense.category.join(', ')} 
+                sum={expense.amount}
+                onDelete={() => deleteExpense(expense._id, index)} 
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
+      
+      <div className={css.monthStats}>
+        <h3>Month Stats</h3>
+        <ul>
+          {Object.keys(monthStats).map(month => (
+            <li key={month}>
+              {month}: {monthStats[month]}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+export default Expense;

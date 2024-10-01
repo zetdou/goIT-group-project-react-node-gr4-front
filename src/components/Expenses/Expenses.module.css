@@ -1,12 +1,8 @@
-  /* Styl dla kontenera aplikacji wydatków */
+
 .transactionContainer {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  padding: 10px;
 }
 
-/* Styl dla kontenera formularza */
 .transactionHeader {
   display: flex;
   flex-direction: column;
@@ -29,6 +25,7 @@
   background: none;
   border: none;
   cursor: pointer;
+  margin-left: 10px;
 }
 
 .calendarIcon {
@@ -44,9 +41,23 @@
   gap: 10px;
 }
 
+.inputFields input,
+.inputFields select {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.inputFields input[type="number"] {
+  background: url(../../images/icons/calculator.svg) no-repeat right 10px center;
+  background-size: 20px;
+  padding-right: 35px;
+  width: 100%;
+}
+
 .transactionButtons {
   display: flex;
-  justify-content: space-between;
   gap: 10px;
 }
 
@@ -70,7 +81,22 @@
   color: #333;
 }
 
-/* Punkt przerwania dla tabletu (od 768px) i desktopu (od 1280px) */
+.transactionTable {
+  margin-top: 20px;
+}
+
+.transactionTable table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.transactionTable th,
+.transactionTable td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
 @media (min-width: 768px) {
   .transactionHeader {
     flex-direction: row;
@@ -79,6 +105,27 @@
 
   .inputFields {
     flex-direction: row;
-    gap: 20px;
+    gap: 15px;
+  }
+
+  .transactionButtons {
+    justify-content: flex-end;
+  }
+}
+
+@media (min-width: 1280px) {
+  .transactionContainer {
+    padding: 20px;
+  }
+
+  .transactionTable th,
+  .transactionTable td {
+    padding: 15px;
+  }
+
+  .inputFields input,
+  .inputFields select {
+    padding: 15px;
+    font-size: 1.2rem;
   }
 }

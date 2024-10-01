@@ -6,9 +6,9 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const Income = () => {
-  const [incomes, setIncomes] = useState([]); // Stan dla transakcji przychodów
-  const [incomeCategories, setIncomeCategories] = useState([]); // Stan dla kategorii przychodów
-  const [monthStats, setMonthStats] = useState({}); // Stan dla statystyk miesięcznych
+  const [incomes, setIncomes] = useState([]); 
+  const [incomeCategories, setIncomeCategories] = useState([]); 
+  const [monthStats, setMonthStats] = useState({}); 
   const [newIncome, setNewIncome] = useState({
     date: new Date(),
     description: '',
@@ -16,18 +16,18 @@ const Income = () => {
     sum: '',
   });
 
-  // Funkcja do pobierania transakcji przy każdym załadowaniu strony
+  
   const fetchTransactions = async () => {
     try {
-      const response = await axios.get('/transaction/income'); // Pobierz wszystkie transakcje przychodów
-      setIncomes(response.data.incomes); // Ustaw transakcje
-      setMonthStats(response.data.monthStats); // Ustaw statystyki miesięczne
+      const response = await axios.get('/transaction/income'); 
+      setIncomes(response.data.incomes); 
+      setMonthStats(response.data.monthStats); 
     } catch (error) {
       console.error('Błąd podczas pobierania transakcji:', error);
     }
   };
 
-  // Funkcja do pobierania kategorii przychodów
+  
   const fetchIncomeCategories = async () => {
     try {
       const response = await axios.get('/transaction/income-categories');
@@ -38,37 +38,37 @@ const Income = () => {
     }
   };
 
-  // Pobierz transakcje i kategorie przy pierwszym załadowaniu komponentu
+  
   useEffect(() => {
-    fetchTransactions(); // Pobierz wszystkie transakcje przychodów
-    fetchIncomeCategories(); // Pobierz kategorie przychodów
+    fetchTransactions(); 
+    fetchIncomeCategories(); 
   }, []);
 
-  // Obsługa zmian w polach input
+  
   const handleInputChange = e => {
     const { name, value } = e.target;
     setNewIncome({ ...newIncome, [name]: value });
   };
 
-  // Dodawanie nowej transakcji
+  
   const addIncome = async () => {
     try {
       const formattedIncome = {
         description: newIncome.description,
-        amount: parseFloat(newIncome.sum), // Upewnij się, że suma jest liczbą
-        date: newIncome.date.toISOString(), // Format ISO
-        category: [newIncome.category], // Kategorie w formie tablicy
+        amount: parseFloat(newIncome.sum), 
+        date: newIncome.date.toISOString(), 
+        category: [newIncome.category], 
       };
 
       console.log('Wysyłam dane do backendu:', formattedIncome);
 
-      // Wysłanie nowej transakcji do backendu
+      
       await axios.post('/transaction/income', formattedIncome);
 
-      // Po dodaniu transakcji, ponownie pobierz transakcje i zaktualizuj statystyki
-      fetchTransactions(); // Aktualizacja transakcji i statystyk
+      
+      fetchTransactions(); 
 
-      // Zresetuj formularz po dodaniu transakcji
+      
       setNewIncome({
         date: new Date(),
         description: '',
@@ -83,7 +83,7 @@ const Income = () => {
     }
   };
 
-  // Usuwanie transakcji przychodów
+ 
   const deleteIncome = async (transactionId, index) => {
     try {
       await axios.delete(`/transaction/${transactionId}`);
@@ -92,7 +92,7 @@ const Income = () => {
       setIncomes(updatedIncomes);
 
       console.log('Transakcja usunięta:', transactionId);
-      fetchTransactions(); // Aktualizacja statystyk po usunięciu
+      fetchTransactions(); 
     } catch (error) {
       console.error(
         'Błąd podczas usuwania przychodu:',
@@ -106,8 +106,8 @@ const Income = () => {
       <div className={css.transactionHeader}>
         <div className={css.datePicker}>
           <DatePicker
-            selected={newIncome.date} // Używamy newIncome.date do wyboru daty
-            onChange={date => setNewIncome({ ...newIncome, date })} // Aktualizacja daty przy dodawaniu transakcji
+            selected={newIncome.date} 
+            onChange={date => setNewIncome({ ...newIncome, date })} 
             dateFormat="yyyy/MM/dd"
             className={css.dateInput}
             showPopperArrow={false}
@@ -129,7 +129,7 @@ const Income = () => {
             value={newIncome.category}
             onChange={handleInputChange}
           >
-            <option value="">Select income category</option>
+            <option value="" disabled>Select income category</option>
             {Array.isArray(incomeCategories) && incomeCategories.length > 0 ? (
               incomeCategories.map((category, index) => (
                 <option key={index} value={category}>
@@ -184,18 +184,18 @@ const Income = () => {
           <tbody>
             {incomes.map((income, index) => (
               <IncomeItem
-                key={income._id} // Używamy identyfikatora transakcji jako klucza
+                key={income._id} 
                 date={income.date}
                 description={income.description}
-                category={income.category.join(', ')} // Łączenie kategorii w string
+                category={income.category.join(', ')} 
                 sum={income.amount}
-                onDelete={() => deleteIncome(income._id, index)} // Przekazujemy id transakcji do usuwania
+                onDelete={() => deleteIncome(income._id, index)} 
               />
             ))}
           </tbody>
         </table>
       </div>
-      {/* Statystyki miesięczne */}
+      
       <div className={css.monthStats}>
         <h3>Month Stats</h3>
         <ul>
