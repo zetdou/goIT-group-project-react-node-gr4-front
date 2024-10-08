@@ -1,7 +1,75 @@
-.BalanceLabelSpanRed {
-  color: #e53935;
+/* Kontener dla balance label */
+.balanceLabelContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px;
 }
 
+/* Stylizacja dla balansu */
+.balanceLabelWrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 500px;
+  align-items: center;
+  text-align: center;
+}
+
+.balanceItem {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+/* Kolor czerwony dla wydatków */
+.BalanceLabelSpanRed {
+  color: red;
+}
+
+/* Kolor zielony dla przychodów */
 .BalanceLabelSpanGreen {
-  color: #407946;
+  color: green;
+}
+
+/* Separator */
+.separator {
+  width: 1px;
+  height: 20px;
+  background-color: #ddd;
+}
+
+/* Mobile-first (do 767px) */
+@media (max-width: 767px) {
+  .balanceItem {
+    font-size: 1rem;
+  }
+
+  .balanceLabelWrapper {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* Tablet (768px - 1279px) */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .balanceItem {
+    font-size: 1.1rem;
+  }
+
+  .balanceLabelWrapper {
+    gap: 15px;
+  }
+}
+
+/* Desktop (1280px i wyżej) */
+@media (min-width: 1280px) {
+  .balanceItem {
+    font-size: 1.2rem;
+  }
+
+  .balanceLabelWrapper {
+    gap: 20px;
+  }
 }
