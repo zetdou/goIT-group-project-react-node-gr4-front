@@ -1,4 +1,87 @@
-/* Kontener balance */
+.BalanceForm {
+      align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  justify-content: center;
+}
+
+.BalanceContainer {
+    margin-top: 50px;
+    display: flex;
+}
+
+.BalanceLabel {
+  color: rgba(82, 85, 95, 0.7);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.48px;
+  text-align: center;
+}
+
+.BalanceInput {
+  background-color: #f2f5fc;
+  border: 2px solid #ffffff;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 700;
+  height: 40px;
+  letter-spacing: 0.02em;
+  line-height: 1.17;
+  padding: 0px;
+  text-align: center;
+  width: 125px;
+}
+
+.BalanceInput:focus::placeholder {
+    opacity: 0; 
+}
+
+.BalanceInput::placeholder {
+  color: #000000;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.17;  
+}
+
+.BalanceButton {
+  background-color: #f2f5fc;
+  border: 2px solid #ffffff;
+  border-radius: 16px;
+  color: rgba(82, 85, 95, 0.7);
+  font-size: 12px;
+  font-weight: 400;
+  height: 44px;
+  text-align: center;
+  width: 125px;
+}
+
+.BalanceWrapper {
+  display: flex;
+  gap: 16px
+}
+
+@media screen and (max-width: 576px) {
+  .BalanceForm {
+    flex-direction: column;
+  }
+
+  .BalanceInput {
+    border-radius: 16px 0 0px 16px;
+    border-right: 0px;
+  }
+
+  .BalanceButton {
+    border-radius: 0 16px 16px 0;
+  }
+
+  .wrapper {
+    gap: 0;
+  }
+}
+
+/* Kontener balance
 .balanceContainer {
   display: flex;
   flex-direction: column;
@@ -8,11 +91,11 @@
   padding: 20px;
 }
 
-/* Formularz balance */
+Formularz balance
 .balanceForm {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Dopasowano wyrównanie dla inputa i przycisku */
+  align-items: flex-start; Dopasowano wyrównanie dla inputa i przycisku
   width: 100%;
 }
 
@@ -22,26 +105,26 @@
   color: #333;
 }
 
-/* Ułożenie inputa i przycisku w jednej linii */
+Ułożenie inputa i przycisku w jednej linii
 .inputWrapper {
   display: flex;
-  align-items: center; /* Umożliwia ustawienie przycisku i inputa w jednej linii */
-  gap: 10px; /* Odstęp między inputem a przyciskiem */
+  align-items: center; Umożliwia ustawienie przycisku i inputa w jednej linii
+  gap: 10px; Odstęp między inputem a przyciskiem
   position: relative;
 }
 
-/* Stylizacja inputa */
+Stylizacja inputa
 .balanceInput {
   padding: 12px 15px;
   font-size: 1.2rem;
   border: 1px solid #ccc;
   border-radius: 8px;
-  width: 150px; /* Dopasowano szerokość inputa */
+  width: 150px; Dopasowano szerokość inputa
   text-align: center;
   transition: color 0.3s;
 }
 
-/* Przycisk confirm */
+Przycisk confirm
 .confirmButton {
   padding: 12px 24px;
   background-color: #FF6B00;
@@ -57,10 +140,10 @@
   background-color: #FF7F26;
 }
 
-/* Stylizacja tooltipa */
+Stylizacja tooltipa
 .tooltip {
   position: absolute;
-  top: 60px; /* Umieszczono tooltip poniżej inputa */
+  top: 60px; Umieszczono tooltip poniżej inputa
   left: 0;
   background-color: #0E2A47;
   color: white;
@@ -80,7 +163,7 @@
   line-height: 1.5rem;
 }
 
-/* Mobile-first stylizacja (max-width 767px) */
+Mobile-first stylizacja (max-width 767px)
 @media (max-width: 767px) {
   .balanceInput {
     max-width: 120px;
@@ -94,11 +177,11 @@
 
   .tooltip {
     max-width: 90vw;
-    top: 50px; /* Dostosowanie pozycji tooltipa dla mniejszych ekranów */
+    top: 50px; Dostosowanie pozycji tooltipa dla mniejszych ekranów
   }
 }
 
-/* Tablet (768px - 1279px) */
+Tablet (768px - 1279px)
 @media (min-width: 768px) and (max-width: 1279px) {
   .balanceInput {
     max-width: 200px;
@@ -116,7 +199,7 @@
   }
 }
 
-/* Desktop (1280px i wyżej) */
+Desktop (1280px i wyżej)
 @media (min-width: 1280px) {
   .balanceInput {
     max-width: 250px;
@@ -129,7 +212,7 @@
   }
 
   .tooltip {
-    top: 60px; /* Poniżej inputa */
+    top: 60px; Poniżej inputa
     max-width: 320px;
   }
-}
+} */
