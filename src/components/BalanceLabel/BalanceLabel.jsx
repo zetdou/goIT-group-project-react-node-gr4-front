@@ -8,12 +8,13 @@ const BalanceLabel = () => {
   const dispatch = useDispatch();
   const { incomesReport = {}, expensesReport = {} } = useReport();
 
+  // Pobieramy dane o transakcjach
   useEffect(() => {
     dispatch(getTransactionsData());
   }, [dispatch]);
 
-  const renderBalanceItem = (label, amount, isExpense) => {
-    <p>
+  const renderBalanceItem = (label, amount, isExpense) => (
+    <p className={css.balanceItem}>
       {label}:{' '}
       <span>
         <span
@@ -25,14 +26,14 @@ const BalanceLabel = () => {
         </span>{' '}
         <span>UAH.</span>
       </span>
-    </p>;
-  };
+    </p>
+  );
 
   return (
-    <div>
-      <div>
+    <div className={css.balanceLabelContainer}>
+      <div className={css.balanceLabelWrapper}>
         {renderBalanceItem('Expenses', expensesReport.total || 0, true)}
-        <div>{/* Tu będzie separator*/}</div>
+        <div className={css.separator}></div>
         {renderBalanceItem('Incomes', incomesReport.total || 0, false)}
       </div>
     </div>
