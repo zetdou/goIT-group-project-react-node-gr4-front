@@ -10,6 +10,9 @@ const App = () => {
 
   return (
     <div className={css.appContainer}>
+      <div>
+        <Balance />
+      </div>
       <div className={css.mainContent}>
         {activeTab === 'expenses' ? <Expenses /> : <Income />}
       </div>

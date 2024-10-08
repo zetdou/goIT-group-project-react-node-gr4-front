@@ -1,10 +1,10 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { updateBalance } from '../../redux/Users/AuthOperations';
-
 import { useAuth } from '../../hooks/useAuth';
 
+import css from './Balance.module.css';
 import BalanceModal from '../BalanceModal/BalanceModal';
 
 const Balance = () => {
@@ -12,8 +12,10 @@ const Balance = () => {
   const form = useRef();
   const { user } = useAuth();
 
-  const userBalance = user ? user.balance : null;
-  let balanceValue;
+  const userBalance = user ? user.balance : '0.00';
+
+  
+  const [placeholderText, setPlaceholderText] = useState(`${userBalance} USD`);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -21,23 +23,26 @@ const Balance = () => {
     console.log('Balance to update:', balanceValue);
     dispatch(updateBalance(balanceValue));
     form.current.reset();
+    setPlaceholderText(`${balanceValue} USD`);
   };
 
   return (
-    <div>
-      <form ref={form} onSubmit={handleSubmit}>
-        <label>Balance</label>
-        <div>
+    <div className={css.BalanceContainer}>
+      <form ref={form} onSubmit={handleSubmit} className={css.BalanceForm}>
+        <label className={css.BalanceLabel}>Balance</label>
+        <div className={css.BalanceWrapper}>
           <input
+            className={css.BalanceInput}
             type="number"
             name="balance"
             title="Please, enter your balance"
-            value={balanceValue}
             step="0.01"
-            placeholder={`${userBalance ? userBalance : '0.00'} USD`}
+            placeholder={placeholderText}
             required
           />
-          <button type="submit">CONFIRM</button>
+          <button type="submit" className={css.BalanceButton}>
+            CONFIRM
+          </button>
         </div>
       </form>
       {!userBalance && <BalanceModal />}
