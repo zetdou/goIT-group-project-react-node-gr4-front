@@ -1,5 +1,5 @@
-const loadingReports = state => state.reports.loadingReports;
-const incomes = state => state.reports.incomes;
-const expenses = state => state.reports.expenses;
+const loadingReports = state => state.report.loadingReports;
+const incomes = state => state.report.incomes;
+const expenses = state => state.report.expenses;
 
 export { loadingReports, incomes, expenses };

@@ -3,8 +3,12 @@ import iconTool from '../IconsAsComponents/IconsAsComponents';
 
 const CurrentPeriod = ({ initialPeriod }) => {
   const [currentPeriod, setCurrentPeriod] = useState(initialPeriod);
+  console.log('initialPeriod:', initialPeriod);
+
 
   const getYearAndMonth = period => {
+    console.log('period:', period);
+    if (!period) return [new Date().getFullYear(), new Date().getMonth() + 1]; // Fallback to current year and month
     return period.split('-').map(Number);
   };
 
