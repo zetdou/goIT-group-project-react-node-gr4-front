@@ -11,7 +11,7 @@ const Balance = () => {
   const { user } = useAuth();
   
   const userBalance = user ? user.balance : null; // : '0.00'
-//   const [placeholderText, setPlaceholderText] = useState(`${userBalance} USD`);
+  const [placeholderText, setPlaceholderText] = useState(`${userBalance} USD`);
   const [balanceValue, setBalanceValue] = useState(userBalance || '');
   const [isTooltipVisible, setIsTooltipVisible] = useState(!userBalance);
 
@@ -52,7 +52,7 @@ const Balance = () => {
 //             onChange={handleInputChange}
             required
             id="balance-input"
-            className={css.balanceInput}
+            // className={css.balanceInput}
           />
           <button type="submit" className={css.BalanceButton}>
             CONFIRM
@@ -61,6 +61,7 @@ const Balance = () => {
         {/* Tooltip wyświetla się, jeśli pole jest puste */}
         {isTooltipVisible && (
           <div className={css.tooltip}>
+            {/* these p or balance modal */}
             <p className={css.tooltipText}>
               Hello! To get started, enter the current balance of your account!
             </p>
