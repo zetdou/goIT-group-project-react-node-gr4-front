@@ -4,13 +4,14 @@ import { updateBalance } from '../../redux/Users/AuthOperations';
 import { useAuth } from '../../hooks/useAuth';
 import css from './Balance.module.css';
 import BalanceModal from '../BalanceModal/BalanceModal';
+import { useNavigate } from "react-router-dom";
 
 const Balance = () => {
   const dispatch = useDispatch();
   const form = useRef();
   const { user } = useAuth();
   
-  const userBalance = user ? user.balance : null; // : '0.00'
+  const userBalance = user ? user.balance : '0.00'; // : '0.00'
   const [placeholderText, setPlaceholderText] = useState(`${userBalance} USD`);
   const [balanceValue, setBalanceValue] = useState(userBalance || '');
   const [isTooltipVisible, setIsTooltipVisible] = useState(!userBalance);
@@ -30,11 +31,18 @@ const Balance = () => {
     setPlaceholderText(`${balanceValue} USD`);
   };
   
-//   const handleInputChange = (e) => {
-//     const value = e.target.value;
-//     setBalanceValue(value);
-//     setIsTooltipVisible(value === '');  // Pokaż tooltip, gdy pole jest puste
-//   };
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setBalanceValue(value);
+    setIsTooltipVisible(value === '');  // Pokaż tooltip, gdy pole jest puste
+  };
+
+  // navigate to /reports
+  const navigate = useNavigate();
+
+  const handleReports = () => {
+    navigate("/reports");
+  }
   
   return (
     <div className={css.BalanceContainer}>
@@ -47,9 +55,9 @@ const Balance = () => {
             name="balance"
             title="Please, enter your balance"
             step="0.01"
-//             placeholder={placeholderText}
-            placeholder="0.00 ZŁ"
-//             onChange={handleInputChange}
+            placeholder={placeholderText}
+            // placeholder="0.00 ZŁ"
+            onChange={handleInputChange}
             required
             id="balance-input"
             // className={css.balanceInput}
@@ -58,6 +66,8 @@ const Balance = () => {
             CONFIRM
           </button>
         </div>
+        {/* navigate to /reports */}
+        <button onClick={handleReports} type='button'>reports</button>
         {/* Tooltip wyświetla się, jeśli pole jest puste */}
         {isTooltipVisible && (
           <div className={css.tooltip}>
