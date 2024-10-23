@@ -8,7 +8,28 @@ import { App } from './components/App';
 import { store, persistor } from './redux/store';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import 'normalize.css';
+import Notiflix from 'notiflix';
 import './index.css';
+
+Notiflix.Notify.init({
+  position: 'left-bottom', // Możesz zmienić na 'left-bottom' lub inną pozycję
+  distance: '20px',
+  opacity: 1,
+  borderRadius: '5px',
+  rtl: false,
+  timeout: 3000,
+  messageMaxLength: 110,
+  backOverlay: false,
+  backOverlayColor: 'rgba(0,0,0,0.5)',
+  plainText: true,
+  showOnlyTheLastOne: false,
+  clickToClose: true,
+  pauseOnHover: true,
+  ID: 'NotiflixNotify',
+  className: 'notiflix-notify',
+  zindex: 4001,
+  useGoogleFont: false,
+});
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
