@@ -50,6 +50,7 @@ const authSlice = createSlice({
       })
       .addCase(refreshUser.rejected, (state, action) => {
         state.isRefreshing = false;
+        state.isLoggedIn = false;
         state.error = action.error.message;
       });
   },
