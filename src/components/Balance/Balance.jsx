@@ -3,14 +3,14 @@ import { useDispatch } from 'react-redux';
 import { updateBalance } from '../../redux/Users/AuthOperations';
 import { useAuth } from '../../hooks/useAuth';
 import css from './Balance.module.css';
-import BalanceModal from '../BalanceModal/BalanceModal';
-import { useNavigate } from "react-router-dom";
+// import BalanceModal from '../BalanceModal/BalanceModal';
+import { useNavigate } from 'react-router-dom';
 
 const Balance = () => {
   const dispatch = useDispatch();
   const form = useRef();
   const { user } = useAuth();
-  
+
   const userBalance = user ? user.balance : '0.00'; // : '0.00'
   const [placeholderText, setPlaceholderText] = useState(`${userBalance} USD`);
   const [balanceValue, setBalanceValue] = useState(userBalance || '');
@@ -22,7 +22,7 @@ const Balance = () => {
     }
   }, [balanceValue]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     const balanceValue = e.target.balance.value;
     console.log('Balance to update:', balanceValue);
@@ -30,20 +30,20 @@ const Balance = () => {
     form.current.reset();
     setPlaceholderText(`${balanceValue} USD`);
   };
-  
-  const handleInputChange = (e) => {
+
+  const handleInputChange = e => {
     const value = e.target.value;
     setBalanceValue(value);
-    setIsTooltipVisible(value === '');  // Pokaż tooltip, gdy pole jest puste
+    setIsTooltipVisible(value === ''); // Pokaż tooltip, gdy pole jest puste
   };
 
   // navigate to /reports
   const navigate = useNavigate();
 
   const handleReports = () => {
-    navigate("/reports");
-  }
-  
+    navigate('/reports');
+  };
+
   return (
     <div className={css.BalanceContainer}>
       <form ref={form} onSubmit={handleSubmit} className={css.BalanceForm}>
@@ -67,7 +67,9 @@ const Balance = () => {
           </button>
         </div>
         {/* navigate to /reports */}
-        <button onClick={handleReports} type='button'>reports</button>
+        <button onClick={handleReports} type="button">
+          reports
+        </button>
         {/* Tooltip wyświetla się, jeśli pole jest puste */}
         {isTooltipVisible && (
           <div className={css.tooltip}>
