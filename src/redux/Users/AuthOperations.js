@@ -1,11 +1,11 @@
 import axios from '../Tools/axiosConfig';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-const setAuthHeader = accessToken => {
+export const setAuthHeader = accessToken => {
   axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 };
 
-const clearAuthHeader = () => {
+export const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = '';
 };
 
@@ -15,6 +15,7 @@ export const register = createAsyncThunk(
     try {
       const res = await axios.post('/auth/register', credentials);
       setAuthHeader(res.data.accessToken);
+      console.log('Odpowiedź z serwera po rejestracji:', res.data);
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -29,6 +30,7 @@ export const logIn = createAsyncThunk(
       console.log('credentials:', credentials);
       const res = await axios.post('/auth/login', credentials);
       setAuthHeader(res.data.accessToken);
+      console.log('Odpowiedź z serwera po logowaniu:', res.data);
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -49,16 +51,34 @@ export const refreshUser = createAsyncThunk(
   'auth/refresh',
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
-    const persistedToken = state.auth.accessToken;
+    const persistedRefreshToken = state.auth.refreshToken;
+    const persistedSid = state.auth.sid;
 
-    if (persistedToken === null) {
-      return thunkAPI.rejectWithValue('Unable to fetch user');
+    if (persistedRefreshToken === null || persistedSid === null) {
+      return thunkAPI.rejectWithValue('Brak tokena odświeżania lub sid');
     }
 
     try {
-      setAuthHeader(persistedToken);
-      const res = await axios.get('/user');
-      return res.data;
+      const response = await axios.post(
+        '/auth/refresh',
+        { sid: persistedSid },
+        {
+          headers: {
+            Authorization: `Bearer ${persistedRefreshToken}`,
+          },
+        }
+      );
+
+      console.log('Odpowiedź z serwera po odświeżeniu tokena:', response.data);
+
+      // Dodajemy ten log:
+      console.log('Dane zwracane do Redux po odświeżeniu tokena:', {
+        newAccessToken: response.data.newAccessToken,
+        newRefreshToken: response.data.newRefreshToken,
+        newSid: response.data.newSid,
+      });
+
+      return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

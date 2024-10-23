@@ -1,5 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { register, logIn, logOut, refreshUser } from './AuthOperations';
+import {
+  register,
+  logIn,
+  logOut,
+  refreshUser,
+  setAuthHeader,
+} from './AuthOperations';
 
 const initialState = {
   user: { email: null, balance: 0 },
@@ -17,12 +23,14 @@ const authSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(register.fulfilled, (state, action) => {
+        console.log('Dane zapisywane w stanie po rejestracji:', action.payload);
         state.user = action.payload.user;
         state.accessToken = action.payload.accessToken;
         state.refreshToken = action.payload.refreshToken;
         state.sid = action.payload.sid;
       })
       .addCase(logIn.fulfilled, (state, action) => {
+        console.log('Dane zapisywane w stanie po logowaniu:', action.payload);
         state.user = action.payload.user;
         state.accessToken = action.payload.accessToken;
         state.refreshToken = action.payload.refreshToken;
@@ -41,17 +49,20 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.accessToken = action.payload.accessToken;
-        state.refreshToken = action.payload.refreshToken;
-        state.sid = action.payload.sid;
+        state.accessToken = action.payload.newAccessToken;
+        state.refreshToken = action.payload.newRefreshToken;
+        state.sid = action.payload.newSid;
         state.isLoggedIn = true;
         state.isRefreshing = false;
+        setAuthHeader(action.payload.newAccessToken);
       })
       .addCase(refreshUser.rejected, (state, action) => {
-        state.isRefreshing = false;
+        state.accessToken = null;
+        state.refreshToken = null;
+        state.sid = null;
         state.isLoggedIn = false;
-        state.error = action.error.message;
+        state.isRefreshing = false;
+        state.error = action.payload;
       });
   },
 });
