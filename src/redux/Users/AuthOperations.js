@@ -115,16 +115,12 @@ export const refreshUser = createAsyncThunk(
         }
       );
 
-      console.log('Odpowiedź z serwera po odświeżeniu tokena:', response.data);
-
       // Pobierz dane użytkownika po odświeżeniu tokena
       const userResponse = await axios.get('/user', {
         headers: {
           Authorization: `Bearer ${response.data.newAccessToken}`,
         },
       });
-
-      console.log('Dane użytkownika po odświeżeniu:', userResponse.data);
 
       return {
         ...response.data,

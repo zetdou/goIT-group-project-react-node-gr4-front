@@ -23,14 +23,12 @@ const authSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(register.fulfilled, (state, action) => {
-        console.log('Dane zapisywane w stanie po rejestracji:', action.payload);
         state.user = action.payload.user;
         state.accessToken = action.payload.accessToken;
         state.refreshToken = action.payload.refreshToken;
         state.sid = action.payload.sid;
       })
       .addCase(logIn.fulfilled, (state, action) => {
-        console.log('Dane zapisywane w stanie po logowaniu:', action.payload);
         state.user = action.payload.user;
         state.accessToken = action.payload.accessToken;
         state.refreshToken = action.payload.refreshToken;
@@ -49,10 +47,6 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
-        console.log(
-          'Aktualizacja stanu po odświeżeniu tokena:',
-          action.payload
-        );
         state.user = action.payload.user;
         state.accessToken = action.payload.newAccessToken;
         state.refreshToken = action.payload.newRefreshToken;
