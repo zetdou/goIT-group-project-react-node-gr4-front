@@ -71,14 +71,19 @@ export const refreshUser = createAsyncThunk(
 
       console.log('Odpowiedź z serwera po odświeżeniu tokena:', response.data);
 
-      // Dodajemy ten log:
-      console.log('Dane zwracane do Redux po odświeżeniu tokena:', {
-        newAccessToken: response.data.newAccessToken,
-        newRefreshToken: response.data.newRefreshToken,
-        newSid: response.data.newSid,
+      // Pobierz dane użytkownika po odświeżeniu tokena
+      const userResponse = await axios.get('/user', {
+        headers: {
+          Authorization: `Bearer ${response.data.newAccessToken}`,
+        },
       });
 
-      return response.data;
+      console.log('Dane użytkownika po odświeżeniu:', userResponse.data);
+
+      return {
+        ...response.data,
+        user: userResponse.data,
+      };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

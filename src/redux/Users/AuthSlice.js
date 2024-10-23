@@ -49,6 +49,11 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
+        console.log(
+          'Aktualizacja stanu po odświeżeniu tokena:',
+          action.payload
+        );
+        state.user = action.payload.user;
         state.accessToken = action.payload.newAccessToken;
         state.refreshToken = action.payload.newRefreshToken;
         state.sid = action.payload.newSid;
