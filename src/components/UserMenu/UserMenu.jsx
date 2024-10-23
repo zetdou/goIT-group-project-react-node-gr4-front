@@ -9,6 +9,7 @@ export const UserMenu = () => {
   const { user } = useAuth();
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
+
   const handleLogoutClick = () => {
     setShowModal(true);
   };
@@ -22,10 +23,16 @@ export const UserMenu = () => {
     dispatch(logOut());
   };
 
+  if (!user || !user.email) {
+    return null; // Nie renderuj nic, jeśli user lub user.email jest null/undefined
+  }
+
   return (
     <nav className={css.userMenuWrapper}>
       <div className={css.userMenuAvatar}>
-        <p className={css.userMenuLetter}>{user.email.charAt(0).toUpperCase()}</p>
+        <p className={css.userMenuLetter}>
+          {user.email.charAt(0).toUpperCase()}
+        </p>
       </div>
       <p className={css.usernameText}>{user.email}</p>
       <div className={css.userMenuRectangle}></div>
