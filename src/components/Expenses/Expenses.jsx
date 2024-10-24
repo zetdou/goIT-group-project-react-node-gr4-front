@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
 import ExpenseItem from '../ExpensesItem/ExpensesItem';
 import css from './Expenses.module.css';
@@ -19,7 +19,7 @@ const Expense = () => {
 
   const isInitialMount = useRef(true);
 
-  const fetchTransactions = async () => {
+  const fetchTransactions = useCallback(async () => {
     try {
       const response = await axios.get('/transaction/expense');
       setExpenses(response.data.expenses);
@@ -27,16 +27,16 @@ const Expense = () => {
     } catch (error) {
       console.error('Błąd podczas pobierania transakcji wydatków:', error);
     }
-  };
+  }, []);
 
-  const fetchExpenseCategories = async () => {
+  const fetchExpenseCategories = useCallback(async () => {
     try {
       const response = await axios.get('/transaction/expense-categories');
       setExpenseCategories(response.data);
     } catch (error) {
       console.error('Błąd podczas pobierania kategorii wydatków:', error);
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (isInitialMount.current) {
@@ -44,7 +44,7 @@ const Expense = () => {
       fetchTransactions();
       fetchExpenseCategories();
     }
-  }, []);
+  }, [fetchTransactions, fetchExpenseCategories]);
 
   const handleInputChange = e => {
     const { name, value } = e.target;
@@ -192,16 +192,20 @@ const Expense = () => {
         </table>
       </div>
 
-      <div className={css.monthStats}>
-        <h3>Month Stats</h3>
-        <ul>
-          {Object.keys(monthStats).map(month => (
-            <li key={month}>
-              {month}: {monthStats[month]}
-            </li>
-          ))}
-        </ul>
-      </div>
+      {Object.keys(monthStats).some(month => monthStats[month] !== 'N/A') && (
+        <div className={css.monthStats}>
+          <h3>Month Stats</h3>
+          <ul>
+            {Object.keys(monthStats)
+              .filter(month => monthStats[month] !== 'N/A')
+              .map(month => (
+                <li key={month}>
+                  {month}: {monthStats[month]}
+                </li>
+              ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
