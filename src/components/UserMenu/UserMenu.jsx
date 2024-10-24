@@ -41,7 +41,7 @@ export const UserMenu = () => {
           className={css.logoutIcon}
           xmlns="http://www.w3.org/2000/svg"
         ></svg>
-        <p className={css.logoutText}>Exit</p>
+        <p className={css.logoutText}>Logout</p>
       </button>
 
       {showModal && (

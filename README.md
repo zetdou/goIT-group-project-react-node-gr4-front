@@ -1,92 +1,62 @@
-# Getting Started with Create React App
+# Aplikacja do zarządzania finansami osobistymi
 
-This project was bootstrapped with
-[Create React App](https://github.com/facebook/create-react-app).
+## Opis
 
-## Available Scripts
+Ta aplikacja to zaawansowane narzędzie do zarządzania finansami osobistymi,
+które umożliwia użytkownikom efektywne śledzenie wydatków i przychodów. Oferuje
+intuicyjny interfejs i szereg funkcji ułatwiających kontrolę nad osobistym
+budżetem.
 
-In the project directory, you can run:
+## Główne funkcje
 
-### `npm start`
+### 1. Zarządzanie wydatkami
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Użytkownicy mogą łatwo dodawać, przeglądać i usuwać wydatki. Każda transakcja
+zawiera szczegółowe informacje, takie jak data, opis, kategoria i kwota.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 2. Zarządzanie przychodami
 
-### `npm test`
+Podobnie jak w przypadku wydatków, aplikacja umożliwia kompleksowe zarządzanie
+przychodami, pozwalając na dodawanie nowych wpisów i analizę istniejących.
 
-Launches the test runner in the interactive watch mode.\
-See the section about
-[running tests](https://facebook.github.io/create-react-app/docs/running-tests)
-for more information.
+### 3. Kategoryzacja transakcji
 
-### `npm run build`
+Aplikacja oferuje system kategoryzacji zarówno dla wydatków, jak i przychodów,
+co znacznie ułatwia późniejszą analizę i planowanie budżetu.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the
-best performance.
+### 4. Raporty i wykresy
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Użytkownicy mają dostęp do zaawansowanych narzędzi do generowania raportów i
+wykresów, które pomagają w wizualizacji i analizie ich finansów.
 
-See the section about
-[deployment](https://facebook.github.io/create-react-app/docs/deployment) for
-more information.
+### 5. Zarządzanie saldem
 
-### `npm run eject`
+Aplikacja automatycznie śledzi ogólne saldo użytkownika i umożliwia jego ręczną
+aktualizację w razie potrzeby.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Technologie
 
-If you aren't satisfied with the build tool and configuration choices, you can
-`eject` at any time. This command will remove the single build dependency from
-your project.
+- React
+- Redux
+- React Router
+- Axios
+- React DatePicker
+- Notiflix
+- Google OAuth
 
-Instead, it will copy all the configuration files and the transitive
-dependencies (webpack, Babel, ESLint, etc) right into your project so you have
-full control over them. All of the commands except `eject` will still work, but
-they will point to the copied scripts so you can tweak them. At this point
-you're on your own.
+## Struktura projektu
 
-You don't have to ever use `eject`. The curated feature set is suitable for
-small and middle deployments, and you shouldn't feel obligated to use this
-feature. However we understand that this tool wouldn't be useful if you couldn't
-customize it when you are ready for it.
+- `src/components`: Komponenty React
+- `src/redux`: Logika Redux (slice'y i operacje asynchroniczne)
+- `src/hooks`: Niestandardowe hooki React
+- `src/pages`: Główne strony aplikacji
 
-## Learn More
+## Responsywność
 
-You can learn more in the
-[Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Aplikacja jest w pełni responsywna i dostosowuje się do różnych rozmiarów
+ekranów, od urządzeń mobilnych po desktopowe.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Autoryzacja i bezpieczeństwo
 
-### Code Splitting
-
-This section has moved here:
-[https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here:
-[https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here:
-[https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here:
-[https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here:
-[https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here:
-[https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Aplikacja wykorzystuje tokeny JWT do autoryzacji i odświeżania sesji
+użytkownika, zapewniając bezpieczne korzystanie z serwisu.

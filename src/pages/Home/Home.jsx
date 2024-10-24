@@ -41,9 +41,6 @@ const Home = () => {
     const email = form.elements.email.value;
     const password = form.elements.password.value;
 
-    console.log('Email:', email); // Logowanie do konsoli
-    console.log('Password:', password); // Logowanie do konsoli
-
     try {
       if (buttonClicked === 'login') {
         await dispatch(

@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import ExpenseItem from '../ExpensesItem/ExpensesItem';
 import css from './Expenses.module.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useSingleApiCall } from '../../hooks/useSingleApiCall';
 
 const Expense = () => {
-  const [expenses, setExpenses] = useState([]); 
-  const [expenseCategories, setExpenseCategories] = useState([]); 
-  const [monthStats, setMonthStats] = useState({}); 
+  const [expenses, setExpenses] = useState([]);
+  const [expenseCategories, setExpenseCategories] = useState([]);
+  const [monthStats, setMonthStats] = useState({});
   const [newExpense, setNewExpense] = useState({
     date: new Date(),
     description: '',
@@ -16,59 +17,53 @@ const Expense = () => {
     sum: '',
   });
 
-  
+  const isInitialMount = useRef(true);
+
   const fetchTransactions = async () => {
     try {
-      const response = await axios.get('/transaction/expense'); 
-      setExpenses(response.data.expenses); 
-      setMonthStats(response.data.monthStats); 
+      const response = await axios.get('/transaction/expense');
+      setExpenses(response.data.expenses);
+      setMonthStats(response.data.monthStats);
     } catch (error) {
       console.error('Błąd podczas pobierania transakcji wydatków:', error);
     }
   };
 
-  
   const fetchExpenseCategories = async () => {
     try {
       const response = await axios.get('/transaction/expense-categories');
-      console.log('Expense categories:', response.data);
       setExpenseCategories(response.data);
     } catch (error) {
       console.error('Błąd podczas pobierania kategorii wydatków:', error);
     }
   };
 
-  
   useEffect(() => {
-    fetchTransactions(); 
-    fetchExpenseCategories();
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      fetchTransactions();
+      fetchExpenseCategories();
+    }
   }, []);
 
-  
   const handleInputChange = e => {
     const { name, value } = e.target;
     setNewExpense({ ...newExpense, [name]: value });
   };
 
-  
   const addExpense = async () => {
     try {
       const formattedExpense = {
         description: newExpense.description,
-        amount: parseFloat(newExpense.sum), 
-        date: newExpense.date.toISOString(), 
-        category: [newExpense.category], 
+        amount: parseFloat(newExpense.sum),
+        date: newExpense.date.toISOString(),
+        category: [newExpense.category],
       };
 
-      console.log('Wysyłam dane do backendu:', formattedExpense);
-
-      
       await axios.post('/transaction/expense', formattedExpense);
 
-      
-      fetchTransactions(); 
+      fetchTransactions();
 
-      
       setNewExpense({
         date: new Date(),
         description: '',
@@ -83,7 +78,6 @@ const Expense = () => {
     }
   };
 
-  
   const deleteExpense = async (transactionId, index) => {
     try {
       await axios.delete(`/transaction/${transactionId}`);
@@ -91,8 +85,7 @@ const Expense = () => {
       const updatedExpenses = expenses.filter((_, i) => i !== index);
       setExpenses(updatedExpenses);
 
-      console.log('Transakcja usunięta:', transactionId);
-      fetchTransactions(); 
+      fetchTransactions();
     } catch (error) {
       console.error(
         'Błąd podczas usuwania wydatku:',
@@ -106,8 +99,8 @@ const Expense = () => {
       <div className={css.transactionHeader}>
         <div className={css.datePicker}>
           <DatePicker
-            selected={newExpense.date} 
-            onChange={date => setNewExpense({ ...newExpense, date })} 
+            selected={newExpense.date}
+            onChange={date => setNewExpense({ ...newExpense, date })}
             dateFormat="yyyy/MM/dd"
             className={css.dateInput}
             showPopperArrow={false}
@@ -129,7 +122,9 @@ const Expense = () => {
             value={newExpense.category}
             onChange={handleInputChange}
           >
-            <option value="" disabled>Select expense category</option>
+            <option value="" disabled>
+              Select expense category
+            </option>
             {Array.isArray(expenseCategories) &&
             expenseCategories.length > 0 ? (
               expenseCategories.map((category, index) => (
@@ -185,18 +180,18 @@ const Expense = () => {
           <tbody>
             {expenses.map((expense, index) => (
               <ExpenseItem
-                key={expense._id} 
+                key={expense._id}
                 date={expense.date}
                 description={expense.description}
-                category={expense.category.join(', ')} 
+                category={expense.category.join(', ')}
                 sum={expense.amount}
-                onDelete={() => deleteExpense(expense._id, index)} 
+                onDelete={() => deleteExpense(expense._id, index)}
               />
             ))}
           </tbody>
         </table>
       </div>
-      
+
       <div className={css.monthStats}>
         <h3>Month Stats</h3>
         <ul>
