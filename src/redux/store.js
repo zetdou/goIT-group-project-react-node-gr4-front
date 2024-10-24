@@ -16,7 +16,7 @@ import { reportReducer } from './Report/ReportSlice';
 const authPersistConfig = {
   key: 'auth',
   storage,
-  whitelist: ['accessToken', 'refreshToken', 'sid'],
+  whitelist: ['accessToken', 'refreshToken', 'sid', 'isLoggedIn', 'user'],
 };
 
 export const store = configureStore({

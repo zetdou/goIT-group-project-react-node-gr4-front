@@ -142,7 +142,7 @@ const Income = () => {
           </select>
           <input
             type="number"
-            placeholder="0.00 ZŁ"
+            placeholder="0.00 USD"
             name="sum"
             value={newIncome.sum}
             onChange={handleInputChange}
