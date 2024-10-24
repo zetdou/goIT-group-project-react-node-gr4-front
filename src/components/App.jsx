@@ -1,6 +1,5 @@
 import { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { PrivateRoute } from './Route/PrivateRoute';
 import { PublicRoute } from './Route/PublicRoute';
 import { SharedLayout } from './Layout/SharedLayout';
@@ -17,15 +16,7 @@ const Incomes = lazy(() => import('./Incomes/Incomes'));
 const ReportsPage = lazy(() => import('../pages/Report/ReportPage'));
 
 export const App = () => {
-  const dispatch = useDispatch();
-  const {
-    isRefreshing,
-    // isLoggedIn
-  } = useAuth();
-
-  // useEffect(() => {
-  //   dispatch(refreshUser());
-  // }, [dispatch]);
+  const { isRefreshing } = useAuth();
 
   return (
     <>

@@ -10,6 +10,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import 'normalize.css';
 import Notiflix from 'notiflix';
 import './index.css';
+import { setStore } from './redux/Tools/storeAccess';
 
 Notiflix.Notify.init({
   position: 'left-bottom', // Możesz zmienić na 'left-bottom' lub inną pozycję
@@ -30,6 +31,8 @@ Notiflix.Notify.init({
   zindex: 4001,
   useGoogleFont: false,
 });
+
+setStore(store);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

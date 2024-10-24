@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../redux/Tools/axiosConfig';
 import IncomeItem from '../IncomesItem/IncomesItem';
 import css from './Incomes.module.css';
 import DatePicker from 'react-datepicker';
@@ -20,7 +20,7 @@ const Income = () => {
 
   const fetchTransactions = useCallback(async () => {
     try {
-      const response = await axios.get('/transaction/income');
+      const response = await axiosInstance.get('/transaction/income');
       setIncomes(response.data.incomes);
       setMonthStats(response.data.monthStats);
     } catch (error) {
@@ -30,7 +30,9 @@ const Income = () => {
 
   const fetchIncomeCategories = useCallback(async () => {
     try {
-      const response = await axios.get('/transaction/income-categories');
+      const response = await axiosInstance.get(
+        '/transaction/income-categories'
+      );
       console.log('Income categories:', response.data);
       setIncomeCategories(response.data);
     } catch (error) {
@@ -62,7 +64,7 @@ const Income = () => {
 
       console.log('Wysyłam dane do backendu:', formattedIncome);
 
-      await axios.post('/transaction/income', formattedIncome);
+      await axiosInstance.post('/transaction/income', formattedIncome);
 
       fetchTransactions();
 
@@ -82,7 +84,7 @@ const Income = () => {
 
   const deleteIncome = async (transactionId, index) => {
     try {
-      await axios.delete(`/transaction/${transactionId}`);
+      await axiosInstance.delete(`/transaction/${transactionId}`);
 
       const updatedIncomes = incomes.filter((_, i) => i !== index);
       setIncomes(updatedIncomes);
