@@ -5,6 +5,8 @@ import {
   logOut,
   refreshUser,
   setAuthHeader,
+  updateBalance,
+  fetchCurrentUser,
 } from './AuthOperations';
 
 const initialState = {
@@ -62,6 +64,26 @@ const authSlice = createSlice({
         state.isLoggedIn = false;
         state.isRefreshing = false;
         state.error = action.payload;
+      })
+      .addCase(updateBalance.pending, state => {
+        state.isRefreshing = true;
+      })
+      .addCase(updateBalance.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isRefreshing = false;
+      })
+      .addCase(updateBalance.rejected, state => {
+        state.isRefreshing = false;
+      })
+      .addCase(fetchCurrentUser.pending, state => {
+        state.isRefreshing = true;
+      })
+      .addCase(fetchCurrentUser.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isRefreshing = false;
+      })
+      .addCase(fetchCurrentUser.rejected, state => {
+        state.isRefreshing = false;
       });
   },
 });

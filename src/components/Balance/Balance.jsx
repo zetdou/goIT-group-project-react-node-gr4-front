@@ -1,44 +1,48 @@
 import { useRef, useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { updateBalance } from '../../redux/Users/AuthOperations';
-import { useAuth } from '../../hooks/useAuth';
-import css from './Balance.module.css';
-// import BalanceModal from '../BalanceModal/BalanceModal';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  updateBalance,
+  fetchCurrentUser,
+} from '../../redux/Users/AuthOperations';
 import { useNavigate } from 'react-router-dom';
+import css from './Balance.module.css';
 
 const Balance = () => {
   const dispatch = useDispatch();
   const form = useRef();
-  const { user } = useAuth();
+  const navigate = useNavigate();
+  const user = useSelector(state => state.auth.user);
+  const isRefreshing = useSelector(state => state.auth.isRefreshing);
 
-  const userBalance = user ? user.balance : '0.00'; // : '0.00'
-  const [placeholderText, setPlaceholderText] = useState(`${userBalance} USD`);
-  const [balanceValue, setBalanceValue] = useState(userBalance || '');
-  const [isTooltipVisible, setIsTooltipVisible] = useState(!userBalance);
+  const [displayBalance, setDisplayBalance] = useState('0.00');
 
   useEffect(() => {
-    if (balanceValue !== '') {
-      setIsTooltipVisible(false); // Ukryj tooltip, jeśli wpisano kwotę
+    if (user && user.balance !== undefined) {
+      setDisplayBalance(parseFloat(user.balance).toFixed(2));
     }
-  }, [balanceValue]);
+  }, [user]);
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     const balanceValue = e.target.balance.value;
-    console.log('Balance to update:', balanceValue);
-    dispatch(updateBalance(balanceValue));
-    form.current.reset();
-    setPlaceholderText(`${balanceValue} USD`);
-  };
 
-  const handleInputChange = e => {
-    const value = e.target.value;
-    setBalanceValue(value);
-    setIsTooltipVisible(value === ''); // Pokaż tooltip, gdy pole jest puste
-  };
+    // Sprawdzamy, czy wartość jest pusta lub nie jest liczbą
+    if (balanceValue === '' || isNaN(parseFloat(balanceValue))) {
+      console.error('Invalid balance value');
+      return;
+    }
 
-  // navigate to /reports
-  const navigate = useNavigate();
+    const newBalance = parseFloat(balanceValue);
+
+    console.log('Balance to update:', newBalance);
+    try {
+      await dispatch(updateBalance(newBalance)).unwrap();
+      await dispatch(fetchCurrentUser()).unwrap();
+      form.current.reset();
+    } catch (error) {
+      console.error('Failed to update balance:', error);
+    }
+  };
 
   const handleReports = () => {
     navigate('/reports');
@@ -55,34 +59,24 @@ const Balance = () => {
             name="balance"
             title="Please, enter your balance"
             step="0.01"
-            placeholder={placeholderText}
-            // placeholder="0.00 ZŁ"
-            onChange={handleInputChange}
+            placeholder={isRefreshing ? 'Updating...' : `${displayBalance} USD`}
             required
             id="balance-input"
-            // className={css.balanceInput}
+            disabled={isRefreshing}
           />
-          <button type="submit" className={css.BalanceButton}>
-            CONFIRM
+          <button
+            type="submit"
+            className={css.BalanceButton}
+            disabled={isRefreshing}
+          >
+            {isRefreshing ? 'Updating...' : 'CONFIRM'}
           </button>
         </div>
-        {/* navigate to /reports */}
-        <button onClick={handleReports} type="button">
+        <button onClick={handleReports} type="button" disabled={isRefreshing}>
           reports
         </button>
-        {/* Tooltip wyświetla się, jeśli pole jest puste */}
-        {isTooltipVisible && (
-          <div className={css.tooltip}>
-            {/* these p or balance modal */}
-            <p className={css.tooltipText}>
-              Hello! To get started, enter the current balance of your account!
-            </p>
-            <p className={css.tooltipText}>
-              You can't spend money until you have it :)
-            </p>
-          </div>
-        )}
       </form>
+      {isRefreshing && <div className={css.loader}>Loading...</div>}
     </div>
   );
 };

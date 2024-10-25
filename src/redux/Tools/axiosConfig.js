@@ -1,6 +1,21 @@
 import axios from 'axios';
+import { getAccessToken } from './storeAccess';
 
-axios.defaults.baseURL = 'https://kapusta-serv.vercel.app';
-// axios.defaults.baseURL = 'http://localhost:3001';
+const instance = axios.create({
+  baseURL: 'https://kapusta-serv.vercel.app',
+});
 
-export default axios;
+instance.interceptors.request.use(
+  config => {
+    const token = getAccessToken();
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  }
+);
+
+export default instance;

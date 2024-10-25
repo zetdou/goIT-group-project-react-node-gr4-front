@@ -1,15 +1,12 @@
-import { useEffect, lazy, Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { PrivateRoute } from './Route/PrivateRoute';
 import { PublicRoute } from './Route/PublicRoute';
 import { SharedLayout } from './Layout/SharedLayout';
-import { refreshUser } from '../redux/Users/AuthOperations';
 import { useAuth } from '../hooks/useAuth';
 import { Loader } from './Loader/Loader';
 import { NotFound } from '../pages/NotFound/NotFound';
 
-// import pages like this
 const Home = lazy(() => import('../pages/Home/Home'));
 const TransactionPage = lazy(() =>
   import('../pages/Transactions/Transactions')
@@ -19,15 +16,7 @@ const Incomes = lazy(() => import('./Incomes/Incomes'));
 const ReportsPage = lazy(() => import('../pages/Report/ReportPage'));
 
 export const App = () => {
-  const dispatch = useDispatch();
-  const {
-    isRefreshing,
-    // isLoggedIn
-  } = useAuth();
-
-  useEffect(() => {
-    dispatch(refreshUser());
-  }, [dispatch]);
+  const { isRefreshing } = useAuth();
 
   return (
     <>

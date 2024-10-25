@@ -1,20 +1,20 @@
-import axios from '../Tools/axiosConfig';
+import axiosInstance from '../Tools/axiosConfig';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import Notiflix from 'notiflix';
 
 export const setAuthHeader = accessToken => {
-  axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+  axiosInstance.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 };
 
 export const clearAuthHeader = () => {
-  axios.defaults.headers.common.Authorization = '';
+  axiosInstance.defaults.headers.common.Authorization = '';
 };
 
 export const register = createAsyncThunk(
   'auth/register',
   async (credentials, thunkAPI) => {
     try {
-      const res = await axios.post('/auth/register', credentials);
+      const res = await axiosInstance.post('/auth/register', credentials);
       setAuthHeader(res.data.accessToken);
       Notiflix.Notify.success('Rejestracja zakończona sukcesem!');
       return res.data;
@@ -50,7 +50,7 @@ export const logIn = createAsyncThunk(
   'auth/login',
   async (credentials, thunkAPI) => {
     try {
-      const res = await axios.post('/auth/login', credentials);
+      const res = await axiosInstance.post('/auth/login', credentials);
       setAuthHeader(res.data.accessToken);
       Notiflix.Notify.success('Logowanie zakończone sukcesem!');
       return res.data;
@@ -84,7 +84,7 @@ export const logIn = createAsyncThunk(
 
 export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
-    await axios.post('/auth/logout');
+    await axiosInstance.post('/auth/logout');
     clearAuthHeader();
     Notiflix.Notify.success('Wylogowano pomyślnie!');
   } catch (error) {
@@ -105,7 +105,7 @@ export const refreshUser = createAsyncThunk(
     }
 
     try {
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         '/auth/refresh',
         { sid: persistedSid },
         {
@@ -116,7 +116,7 @@ export const refreshUser = createAsyncThunk(
       );
 
       // Pobierz dane użytkownika po odświeżeniu tokena
-      const userResponse = await axios.get('/user', {
+      const userResponse = await axiosInstance.get('/user', {
         headers: {
           Authorization: `Bearer ${response.data.newAccessToken}`,
         },
@@ -134,12 +134,22 @@ export const refreshUser = createAsyncThunk(
 
 export const updateBalance = createAsyncThunk(
   'auth/updateBalance',
-  async (balanceValue, thunkAPI) => {
+  async (balance, thunkAPI) => {
     try {
-      const res = await axios.patch('/user/balance', {
-        balance: balanceValue,
-      });
-      return res.data;
+      const response = await axiosInstance.patch('/user/balance', { balance });
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchCurrentUser = createAsyncThunk(
+  'auth/fetchCurrentUser',
+  async (_, thunkAPI) => {
+    try {
+      const response = await axiosInstance.get('/user');
+      return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
