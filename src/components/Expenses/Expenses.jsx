@@ -5,7 +5,6 @@ import ExpenseItem from '../ExpensesItem/ExpensesItem';
 import css from './Expenses.module.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useSingleApiCall } from '../../hooks/useSingleApiCall';
 import { fetchCurrentUser } from '../../redux/Users/AuthOperations';
 
 const Expense = () => {
