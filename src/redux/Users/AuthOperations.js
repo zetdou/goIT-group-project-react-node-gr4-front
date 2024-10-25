@@ -134,12 +134,22 @@ export const refreshUser = createAsyncThunk(
 
 export const updateBalance = createAsyncThunk(
   'auth/updateBalance',
-  async (balanceValue, thunkAPI) => {
+  async (balance, thunkAPI) => {
     try {
-      const res = await axiosInstance.patch('/user/balance', {
-        balance: balanceValue,
-      });
-      return res.data;
+      const response = await axiosInstance.patch('/user/balance', { balance });
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchCurrentUser = createAsyncThunk(
+  'auth/fetchCurrentUser',
+  async (_, thunkAPI) => {
+    try {
+      const response = await axiosInstance.get('/user');
+      return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import axiosInstance from '../../redux/Tools/axiosConfig';
 import ExpenseItem from '../ExpensesItem/ExpensesItem';
 import css from './Expenses.module.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useSingleApiCall } from '../../hooks/useSingleApiCall';
+import { fetchCurrentUser } from '../../redux/Users/AuthOperations';
 
 const Expense = () => {
   const [expenses, setExpenses] = useState([]);
@@ -18,6 +20,9 @@ const Expense = () => {
   });
 
   const isInitialMount = useRef(true);
+
+  const dispatch = useDispatch();
+  const isRefreshing = useSelector(state => state.auth.isRefreshing);
 
   const fetchTransactions = useCallback(async () => {
     try {
@@ -68,7 +73,7 @@ const Expense = () => {
       };
 
       await axiosInstance.post('/transaction/expense', formattedExpense);
-
+      await dispatch(fetchCurrentUser()).unwrap();
       fetchTransactions();
 
       setNewExpense({
@@ -88,6 +93,7 @@ const Expense = () => {
   const deleteExpense = async (transactionId, index) => {
     try {
       await axiosInstance.delete(`/transaction/${transactionId}`);
+      await dispatch(fetchCurrentUser()).unwrap();
 
       const updatedExpenses = expenses.filter((_, i) => i !== index);
       setExpenses(updatedExpenses);
@@ -154,8 +160,12 @@ const Expense = () => {
           />
         </div>
         <div className={css.transactionButtons}>
-          <button className={css.inputBtn} onClick={addExpense}>
-            INPUT
+          <button
+            className={css.inputBtn}
+            onClick={addExpense}
+            disabled={isRefreshing}
+          >
+            {isRefreshing ? 'Updating...' : 'INPUT'}
           </button>
           <button
             className={css.clearBtn}
@@ -167,6 +177,7 @@ const Expense = () => {
                 sum: '',
               })
             }
+            disabled={isRefreshing}
           >
             CLEAR
           </button>
@@ -213,6 +224,8 @@ const Expense = () => {
           </ul>
         </div>
       )}
+
+      {isRefreshing && <div className={css.loader}>Loading...</div>}
     </div>
   );
 };

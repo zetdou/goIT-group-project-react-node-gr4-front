@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import axiosInstance from '../../redux/Tools/axiosConfig';
 import IncomeItem from '../IncomesItem/IncomesItem';
 import css from './Incomes.module.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { fetchCurrentUser } from '../../redux/Users/AuthOperations';
 
 const Income = () => {
   const [incomes, setIncomes] = useState([]);
@@ -17,6 +19,9 @@ const Income = () => {
   });
 
   const isInitialMount = useRef(true);
+
+  const dispatch = useDispatch();
+  const isRefreshing = useSelector(state => state.auth.isRefreshing);
 
   const fetchTransactions = useCallback(async () => {
     try {
@@ -62,10 +67,8 @@ const Income = () => {
         category: [newIncome.category],
       };
 
-      console.log('Wysyłam dane do backendu:', formattedIncome);
-
       await axiosInstance.post('/transaction/income', formattedIncome);
-
+      await dispatch(fetchCurrentUser()).unwrap();
       fetchTransactions();
 
       setNewIncome({
@@ -85,11 +88,11 @@ const Income = () => {
   const deleteIncome = async (transactionId, index) => {
     try {
       await axiosInstance.delete(`/transaction/${transactionId}`);
+      await dispatch(fetchCurrentUser()).unwrap();
 
       const updatedIncomes = incomes.filter((_, i) => i !== index);
       setIncomes(updatedIncomes);
 
-      console.log('Transakcja usunięta:', transactionId);
       fetchTransactions();
     } catch (error) {
       console.error(
@@ -151,8 +154,12 @@ const Income = () => {
           />
         </div>
         <div className={css.transactionButtons}>
-          <button className={css.inputBtn} onClick={addIncome}>
-            INPUT
+          <button
+            className={css.inputBtn}
+            onClick={addIncome}
+            disabled={isRefreshing}
+          >
+            {isRefreshing ? 'Updating...' : 'INPUT'}
           </button>
           <button
             className={css.clearBtn}
@@ -164,6 +171,7 @@ const Income = () => {
                 sum: '',
               })
             }
+            disabled={isRefreshing}
           >
             CLEAR
           </button>
@@ -210,6 +218,7 @@ const Income = () => {
           </ul>
         </div>
       )}
+      {isRefreshing && <div className={css.loader}>Loading...</div>}
     </div>
   );
 };
