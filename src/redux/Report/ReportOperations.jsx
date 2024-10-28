@@ -8,7 +8,7 @@ export const getTransactionsData = createAsyncThunk(
       const { data } = await axiosInstance.get(
         `/transaction/period-data?date=${period}`
       );
-      return data; // Zwracamy cały obiekt response
+      return data;
     } catch (e) {
       console.error('Error fetching transactions:', e);
       return thunkApi.rejectWithValue('Nie udało się pobrać danych');

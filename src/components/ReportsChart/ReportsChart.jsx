@@ -9,7 +9,6 @@ const ReportsChart = ({ selectedCategory, categoryData, currentView }) => {
 
     const data = [['Transaction', 'Amount', { role: 'annotation' }]];
 
-    // Pomijamy pole 'total' i dodajemy pozostałe transakcje
     Object.entries(categoryData).forEach(([transaction, amount]) => {
       if (transaction !== 'total') {
         data.push([transaction, amount, amount.toString()]);

@@ -1,17 +1,17 @@
 import React, { useMemo } from 'react';
 import iconTool from '../IconsAsComponents/IconsAsComponents';
 
-const ReportsCategoriesNavigation = ({ currentCategory, toggleCategory }) => {
+const ReportsCategoriesNavigation = ({ currentView, toggleView }) => {
   const viewCategory = useMemo(
-    () => (currentCategory === 'Expenses' ? 'Expenses' : 'Incomes'),
-    [currentCategory]
+    () => (currentView === 'expenses' ? 'Expenses' : 'Incomes'),
+    [currentView]
   );
 
   return (
     <div>
-      <button onClick={toggleCategory}>{iconTool.smallArrowLeft}</button>
+      <button onClick={toggleView}>{iconTool.smallArrowLeft}</button>
       <p>{viewCategory}</p>
-      <button onClick={toggleCategory}>{iconTool.smallArrowRight}</button>
+      <button onClick={toggleView}>{iconTool.smallArrowRight}</button>
     </div>
   );
 };

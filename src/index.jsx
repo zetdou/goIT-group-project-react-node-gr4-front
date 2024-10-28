@@ -13,7 +13,7 @@ import './index.css';
 import { setStore } from './redux/Tools/storeAccess';
 
 Notiflix.Notify.init({
-  position: 'left-bottom', // Możesz zmienić na 'left-bottom' lub inną pozycję
+  position: 'left-bottom',
   distance: '20px',
   opacity: 1,
   borderRadius: '5px',

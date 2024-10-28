@@ -4,7 +4,7 @@ import iconTool from '../IconsAsComponents/IconsAsComponents';
 
 const CategoryList = ({ currentView, onCategorySelect }) => {
   const [categoryData, setCategoryData] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [activeCategory, setActiveCategory] = useState(null);
   const { incomesReport, expensesReport } = useReport();
 
   const calculateCategoryData = useCallback(() => {
@@ -12,38 +12,52 @@ const CategoryList = ({ currentView, onCategorySelect }) => {
       const reportData =
         currentView === 'expenses' ? expensesReport.data : incomesReport.data;
 
-      const categories = Object.entries(reportData || {}).map(
-        ([category, data]) => {
-          // Sprawdzamy czy data.total istnieje, jeśli nie, sumujemy wartości
-          const total =
-            data.total ||
-            Object.values(data).reduce(
-              (sum, value) => (typeof value === 'number' ? sum + value : sum),
-              0
-            );
+      if (!reportData) {
+        setCategoryData([]);
+        return;
+      }
 
-          return {
-            category,
-            total: Number(total).toFixed(2),
-            icon: iconTool[category.toLowerCase()] || iconTool.other,
-            details: data,
-          };
-        }
-      );
+      const categories = Object.entries(reportData).map(([category, data]) => {
+        const total =
+          data.total ||
+          Object.values(data).reduce(
+            (sum, value) => (typeof value === 'number' ? sum + value : sum),
+            0
+          );
+
+        return {
+          category,
+          total: Number(total).toFixed(2),
+          icon: iconTool[category.toLowerCase()] || iconTool.other,
+          details: data,
+        };
+      });
 
       setCategoryData(categories);
+
+      if (categories.length > 0 && !activeCategory) {
+        const firstCategory = categories[0];
+        setActiveCategory(firstCategory.category);
+        onCategorySelect(firstCategory.category, firstCategory.details);
+      }
     } catch (error) {
       console.error('Error in CategoryList:', error);
       setCategoryData([]);
     }
-  }, [currentView, incomesReport.data, expensesReport.data]);
+  }, [
+    currentView,
+    incomesReport.data,
+    expensesReport.data,
+    onCategorySelect,
+    activeCategory,
+  ]);
 
   useEffect(() => {
     calculateCategoryData();
   }, [calculateCategoryData]);
 
   const handleCategoryClick = (category, details) => {
-    setSelectedCategory(category);
+    setActiveCategory(category);
     onCategorySelect(category, details);
   };
 
@@ -57,7 +71,11 @@ const CategoryList = ({ currentView, onCategorySelect }) => {
             style={{
               cursor: 'pointer',
               backgroundColor:
-                selectedCategory === item.category ? '#f0f0f0' : 'transparent',
+                activeCategory === item.category ? '#f0f0f0' : 'transparent',
+              padding: '10px',
+              margin: '5px 0',
+              borderRadius: '4px',
+              transition: 'background-color 0.3s ease',
             }}
           >
             <p>{item.total} UAH</p>

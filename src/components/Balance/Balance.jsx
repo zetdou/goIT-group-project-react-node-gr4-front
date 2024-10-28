@@ -26,7 +26,6 @@ const Balance = () => {
     e.preventDefault();
     const balanceValue = e.target.balance.value;
 
-    // Sprawdzamy, czy wartość jest pusta lub nie jest liczbą
     if (balanceValue === '' || isNaN(parseFloat(balanceValue))) {
       console.error('Invalid balance value');
       return;
