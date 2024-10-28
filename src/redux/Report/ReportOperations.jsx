@@ -1,17 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-
-import axios from 'axios';
+import axiosInstance from '../Tools/axiosConfig';
 
 export const getTransactionsData = createAsyncThunk(
   'report/getTransactionsData',
   async ({ period }, thunkApi) => {
     try {
-      const { data } = await axios.get(
-        `/transactions/period-data?date=${period}`
+      const { data } = await axiosInstance.get(
+        `/transaction/period-data?date=${period}`
       );
-      return { data };
+      return data; // Zwracamy cały obiekt response
     } catch (e) {
-      return thunkApi.rejectWithValue('Not founded!');
+      console.error('Error fetching transactions:', e);
+      return thunkApi.rejectWithValue('Nie udało się pobrać danych');
     }
   }
 );

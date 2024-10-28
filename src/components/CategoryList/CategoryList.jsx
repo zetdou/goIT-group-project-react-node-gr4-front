@@ -1,43 +1,39 @@
+import React, { memo, useCallback } from 'react';
 import { useState, useEffect } from 'react';
 import useReport from '../../hooks/useReport';
 import iconTool from '../IconsAsComponents/IconsAsComponents';
 
-const CategoryList = ({ currentView }) => {
+const CategoryList = memo(({ currentView }) => {
   const [categoryData, setCategoryData] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const reportData = useReport(currentView);
 
-  const fetchReportsData = () => {
+  const fetchReportsData = useCallback(() => {
+    if (!reportData) return;
+
     try {
       setLoading(true);
       const categories = Object.keys(reportData || {});
 
-      const categorySum = categories.map(category => {
-        const total = Object.values(reportData[category] || {}).reduce(
-          (acc, value) => acc + value,
-          0
-        );
-        return {
-          category,
-          total: total.toString({
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          }),
-          icon: iconTool[category],
-        };
-      });
+      const categorySum = categories.map(category => ({
+        category,
+        total: Object.values(reportData[category] || {})
+          .reduce((acc, value) => acc + value, 0)
+          .toFixed(2),
+        icon: iconTool[category],
+      }));
+
       setCategoryData(categorySum);
     } catch (e) {
-      console.log(e);
+      console.log('Error in CategoryList:', e);
     } finally {
       setLoading(false);
     }
-  };
+  }, [reportData]);
 
   useEffect(() => {
     fetchReportsData();
-  }, [currentView, reportData]);
+  }, [fetchReportsData]);
 
   return (
     <div>
@@ -56,6 +52,6 @@ const CategoryList = ({ currentView }) => {
       )}
     </div>
   );
-};
+});
 
 export default CategoryList;

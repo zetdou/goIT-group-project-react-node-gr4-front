@@ -1,17 +1,14 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import useReport from '../../hooks/useReport';
-import { getTransactionsData } from '../../redux/Report/ReportOperations';
 import css from './BalanceLabel.module.css';
 
 const BalanceLabel = () => {
-  const dispatch = useDispatch();
-  const { incomesReport = {}, expensesReport = {} } = useReport();
+  const { incomesReport, expensesReport } = useReport();
 
-  // Pobieramy dane o transakcjach
-  useEffect(() => {
-    dispatch(getTransactionsData());
-  }, [dispatch]);
+  console.log('Balance data:', {
+    incomes: incomesReport.total,
+    expenses: expensesReport.total,
+  });
 
   const renderBalanceItem = (label, amount, isExpense) => (
     <p className={css.balanceItem}>
@@ -22,7 +19,7 @@ const BalanceLabel = () => {
             isExpense ? css.BalanceLabelSpanRed : css.BalanceLabelSpanGreen
           }
         >
-          {isExpense ? `- ${amount}` : `+ ${amount}`}
+          {isExpense ? `- ${amount.toFixed(2)}` : `+ ${amount.toFixed(2)}`}
         </span>{' '}
         <span>UAH.</span>
       </span>
@@ -32,9 +29,9 @@ const BalanceLabel = () => {
   return (
     <div className={css.balanceLabelContainer}>
       <div className={css.balanceLabelWrapper}>
-        {renderBalanceItem('Expenses', expensesReport.total || 0, true)}
+        {renderBalanceItem('Expenses', expensesReport.total, true)}
         <div className={css.separator}></div>
-        {renderBalanceItem('Incomes', incomesReport.total || 0, false)}
+        {renderBalanceItem('Incomes', incomesReport.total, false)}
       </div>
     </div>
   );
