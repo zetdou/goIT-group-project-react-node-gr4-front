@@ -9,11 +9,11 @@ const useReport = () => {
   return useMemo(
     () => ({
       incomesReport: {
-        total: incomesData?.total || 0,
+        total: Number(incomesData?.total || 0),
         data: incomesData?.incomesData || {},
       },
       expensesReport: {
-        total: expensesData?.total || 0,
+        total: Number(expensesData?.total || 0),
         data: expensesData?.expensesData || {},
       },
     }),

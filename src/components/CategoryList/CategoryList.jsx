@@ -1,57 +1,73 @@
-import React, { memo, useCallback } from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import useReport from '../../hooks/useReport';
 import iconTool from '../IconsAsComponents/IconsAsComponents';
 
-const CategoryList = memo(({ currentView }) => {
+const CategoryList = ({ currentView, onCategorySelect }) => {
   const [categoryData, setCategoryData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const reportData = useReport(currentView);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const { incomesReport, expensesReport } = useReport();
 
-  const fetchReportsData = useCallback(() => {
-    if (!reportData) return;
-
+  const calculateCategoryData = useCallback(() => {
     try {
-      setLoading(true);
-      const categories = Object.keys(reportData || {});
+      const reportData =
+        currentView === 'expenses' ? expensesReport.data : incomesReport.data;
 
-      const categorySum = categories.map(category => ({
-        category,
-        total: Object.values(reportData[category] || {})
-          .reduce((acc, value) => acc + value, 0)
-          .toFixed(2),
-        icon: iconTool[category],
-      }));
+      const categories = Object.entries(reportData || {}).map(
+        ([category, data]) => {
+          // Sprawdzamy czy data.total istnieje, jeśli nie, sumujemy wartości
+          const total =
+            data.total ||
+            Object.values(data).reduce(
+              (sum, value) => (typeof value === 'number' ? sum + value : sum),
+              0
+            );
 
-      setCategoryData(categorySum);
-    } catch (e) {
-      console.log('Error in CategoryList:', e);
-    } finally {
-      setLoading(false);
+          return {
+            category,
+            total: Number(total).toFixed(2),
+            icon: iconTool[category.toLowerCase()] || iconTool.other,
+            details: data,
+          };
+        }
+      );
+
+      setCategoryData(categories);
+    } catch (error) {
+      console.error('Error in CategoryList:', error);
+      setCategoryData([]);
     }
-  }, [reportData]);
+  }, [currentView, incomesReport.data, expensesReport.data]);
 
   useEffect(() => {
-    fetchReportsData();
-  }, [fetchReportsData]);
+    calculateCategoryData();
+  }, [calculateCategoryData]);
+
+  const handleCategoryClick = (category, details) => {
+    setSelectedCategory(category);
+    onCategorySelect(category, details);
+  };
 
   return (
     <div>
-      {loading ? (
-        <div>Loading...</div>
-      ) : (
-        <ul>
-          {categoryData.map((category, index) => (
-            <li key={index}>
-              <p>{category.total}</p>
-              <div>{category.icon}</div>
-              <p>{category.category}</p>
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul>
+        {categoryData.map(item => (
+          <li
+            key={item.category}
+            onClick={() => handleCategoryClick(item.category, item.details)}
+            style={{
+              cursor: 'pointer',
+              backgroundColor:
+                selectedCategory === item.category ? '#f0f0f0' : 'transparent',
+            }}
+          >
+            <p>{item.total} UAH</p>
+            <div>{item.icon}</div>
+            <p>{item.category}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
-});
+};
 
 export default CategoryList;

@@ -33,12 +33,19 @@ const ReportsPage = () => {
   const isLoading = useSelector(loadingReports);
 
   const [currentView, setCurrentView] = useState('expenses');
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategoryData, setSelectedCategoryData] = useState(null);
 
   const toggleView = useCallback(() => {
     setCurrentView(prevView =>
       prevView === 'expenses' ? 'income' : 'expenses'
     );
   }, []);
+
+  const handleCategorySelect = (category, details) => {
+    setSelectedCategory(category);
+    setSelectedCategoryData(details);
+  };
 
   useEffect(() => {
     if (fetchTimeoutRef.current) {
@@ -79,15 +86,18 @@ const ReportsPage = () => {
           <div>
             <ReportsCategoriesNavigation
               currentView={currentView}
-              toogleView={toggleView}
+              toggleView={toggleView}
             />
-            <CategoryList currentView={currentView} />
+            <CategoryList
+              currentView={currentView}
+              onCategorySelect={handleCategorySelect}
+            />
           </div>
         </div>
         <ReportsChart
-          expensesData={expensesData}
-          incomesData={incomesData}
-          currentCategory={currentView === 'expenses' ? 'Expenses' : 'Incomes'}
+          selectedCategory={selectedCategory}
+          categoryData={selectedCategoryData}
+          currentView={currentView}
         />
       </div>
     </div>

@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import useReport from '../../hooks/useReport';
 import css from './BalanceLabel.module.css';
 

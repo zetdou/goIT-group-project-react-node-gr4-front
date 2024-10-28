@@ -1,24 +1,19 @@
 import React from 'react';
 import { Chart } from 'react-google-charts';
 
-const ReportsChart = ({ expensesData, incomesData, currentCategory }) => {
+const ReportsChart = ({ selectedCategory, categoryData, currentView }) => {
   const prepareChartData = () => {
-    const data = [['Category', currentCategory]];
-    const categoryData =
-      currentCategory === 'Expenses' ? expensesData : incomesData;
-
-    if (!categoryData?.expensesData && !categoryData?.incomesData) {
-      return data;
+    if (!selectedCategory || !categoryData) {
+      return [['Transaction', 'Amount', { role: 'annotation' }]];
     }
 
-    const dataToProcess =
-      currentCategory === 'Expenses'
-        ? categoryData.expensesData
-        : categoryData.incomesData;
+    const data = [['Transaction', 'Amount', { role: 'annotation' }]];
 
-    Object.entries(dataToProcess || {}).forEach(([category, categoryData]) => {
-      // Zmiana z data.push na:
-      data.push([category, categoryData.total]);
+    // Pomijamy pole 'total' i dodajemy pozostałe transakcje
+    Object.entries(categoryData).forEach(([transaction, amount]) => {
+      if (transaction !== 'total') {
+        data.push([transaction, amount, amount.toString()]);
+      }
     });
 
     return data;
@@ -31,17 +26,24 @@ const ReportsChart = ({ expensesData, incomesData, currentCategory }) => {
       <Chart
         width={'100%'}
         height={'400px'}
-        chartType="Bar"
+        chartType="ColumnChart"
         data={chartData}
         options={{
-          title: currentCategory,
-          chartArea: { width: '50%' },
-          hAxis: {
-            title: 'Amount',
-            minValue: 0,
+          title: `${selectedCategory || 'Select category'} Details`,
+          legend: { position: 'none' },
+          annotations: {
+            textStyle: {
+              fontSize: 12,
+              color: '#000',
+              auraColor: 'none',
+            },
           },
           vAxis: {
-            title: 'Category',
+            title: 'Amount (UAH)',
+            minValue: 0,
+          },
+          hAxis: {
+            title: 'Transactions',
           },
         }}
       />
