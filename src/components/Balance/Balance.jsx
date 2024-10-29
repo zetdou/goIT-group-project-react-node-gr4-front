@@ -6,6 +6,7 @@ import {
 } from '../../redux/Users/AuthOperations';
 import { useNavigate } from 'react-router-dom';
 import css from './Balance.module.css';
+import { checkAuth } from '../../redux/Tools/authHelper';
 
 const Balance = () => {
   const dispatch = useDispatch();
@@ -35,9 +36,9 @@ const Balance = () => {
 
     console.log('Balance to update:', newBalance);
     try {
-      await dispatch(updateBalance(newBalance)).unwrap();
+      await handleUpdateBalance(newBalance);
       await dispatch(fetchCurrentUser()).unwrap();
-      form.current.reset();
+      e.target.reset();
     } catch (error) {
       console.error('Failed to update balance:', error);
     }
@@ -45,6 +46,16 @@ const Balance = () => {
 
   const handleReports = () => {
     navigate('/reports');
+  };
+
+  const handleUpdateBalance = async newBalance => {
+    if (!checkAuth()) return;
+
+    try {
+      await dispatch(updateBalance(newBalance)).unwrap();
+    } catch (error) {
+      console.error('Failed to update balance:', error);
+    }
   };
 
   return (

@@ -1,6 +1,7 @@
 import axiosInstance from '../Tools/axiosConfig';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import Notiflix from 'notiflix';
+import { checkAuth } from '../Tools/authHelper';
 
 export const setAuthHeader = accessToken => {
   axiosInstance.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
@@ -86,6 +87,7 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
     await axiosInstance.post('/auth/logout');
     clearAuthHeader();
+    localStorage.removeItem('persist:auth');
     Notiflix.Notify.success('Wylogowano pomyślnie!');
   } catch (error) {
     Notiflix.Notify.failure('Błąd wylogowania: ' + error.message);
@@ -135,6 +137,10 @@ export const refreshUser = createAsyncThunk(
 export const updateBalance = createAsyncThunk(
   'auth/updateBalance',
   async (balance, thunkAPI) => {
+    if (!checkAuth()) {
+      return thunkAPI.rejectWithValue('Brak autoryzacji');
+    }
+
     try {
       const response = await axiosInstance.patch('/user/balance', { balance });
       return response.data;
@@ -147,6 +153,10 @@ export const updateBalance = createAsyncThunk(
 export const fetchCurrentUser = createAsyncThunk(
   'auth/fetchCurrentUser',
   async (_, thunkAPI) => {
+    if (!checkAuth()) {
+      return thunkAPI.rejectWithValue('Brak autoryzacji');
+    }
+
     try {
       const response = await axiosInstance.get('/user');
       return response.data;
