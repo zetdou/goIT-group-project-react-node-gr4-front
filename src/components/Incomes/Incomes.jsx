@@ -7,7 +7,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { fetchCurrentUser } from '../../redux/Users/AuthOperations';
 
-const Income = () => {
+const Income = ({ setCurrentView }) => {
   const [incomes, setIncomes] = useState([]);
   const [incomeCategories, setIncomeCategories] = useState([]);
   const [monthStats, setMonthStats] = useState({});
@@ -77,11 +77,12 @@ const Income = () => {
         category: '',
         sum: '',
       });
+
+      if (setCurrentView) {
+        setCurrentView('income');
+      }
     } catch (error) {
-      console.error(
-        'Błąd podczas dodawania przychodu:',
-        error.response?.data || error.message
-      );
+      console.error('Błąd podczas dodawania przychodu:', error);
     }
   };
 

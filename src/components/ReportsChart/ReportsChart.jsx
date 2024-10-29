@@ -1,71 +1,48 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Chart } from 'react-google-charts';
-import { useDispatch, useSelector } from 'react-redux';
-import { getTransactionsData } from '../../redux/Report/ReportOperations';
-import {
-  loadingReports,
-  expenses,
-  incomes,
-} from '../../redux/Report/ReportSelectors';
 
-const ReportsChart = ({ currentPeriod, currentCategory }) => {
-  const dispatch = useDispatch();
-
-  const expensesData = useSelector(expenses);
-  const incomesData = useSelector(incomes);
-  const loading = useSelector(loadingReports);
-
-  console.log('expensesData:', expensesData); // returns empty object
-
-  useEffect(() => {
-    dispatch(getTransactionsData({ period: currentPeriod }));
-  }, [dispatch, currentPeriod]);
-
+const ReportsChart = ({ selectedCategory, categoryData, currentView }) => {
   const prepareChartData = () => {
-    const data = [['Category', currentCategory]];
-
-    const categoryData =
-      currentCategory === 'Expenses' ? expensesData : incomesData;
-      console.log('category Data:', categoryData); // returns empty object
-    // Nie jestem pewien, czy item.category i item.amount będą ok. Chyba to zależy, jak się będzie wysyłać dane w reduxie do operacji expenses i incomes
-    if (!Array.isArray(categoryData) || categoryData.length === 0) {
-      return data; // Return default data if categoryData is not a valid array
+    if (!selectedCategory || !categoryData) {
+      return [['Transaction', 'Amount', { role: 'annotation' }]];
     }
-    
-    const aggregatedData = categoryData.reduce((acc, item) => {
-      acc[item.category] = (acc[item.category] || 0) + item.amount;
-      return acc;
-    }, {});
 
-    for (const [category, amount] of Object.entries(aggregatedData)) {
-      data.push([category, amount]);
-    }
+    const data = [['Transaction', 'Amount', { role: 'annotation' }]];
+
+    Object.entries(categoryData).forEach(([transaction, amount]) => {
+      if (transaction !== 'total') {
+        data.push([transaction, amount, amount.toString()]);
+      }
+    });
 
     return data;
   };
 
   const chartData = prepareChartData();
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div>
       <Chart
         width={'100%'}
         height={'400px'}
-        chartType="Bar"
+        chartType="ColumnChart"
         data={chartData}
         options={{
-          title: currentCategory,
-          chartArea: { width: '50%' },
-          hAxis: {
-            title: 'Amount',
-            minValue: 0,
+          title: `${selectedCategory || 'Select category'} Details`,
+          legend: { position: 'none' },
+          annotations: {
+            textStyle: {
+              fontSize: 12,
+              color: '#000',
+              auraColor: 'none',
+            },
           },
           vAxis: {
-            title: 'Category',
+            title: 'Amount (UAH)',
+            minValue: 0,
+          },
+          hAxis: {
+            title: 'Transactions',
           },
         }}
       />

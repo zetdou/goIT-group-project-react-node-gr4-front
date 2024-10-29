@@ -2,15 +2,23 @@ import { useSelector } from 'react-redux';
 import { incomes, expenses } from '../redux/Report/ReportSelectors';
 import { useMemo } from 'react';
 
-const useReport = currentView => {
-  const incomesReport = useSelector(incomes);
-  const expensesReport = useSelector(expenses);
+const useReport = () => {
+  const incomesData = useSelector(incomes);
+  const expensesData = useSelector(expenses);
 
-  const data = useMemo(() => {
-    return currentView === 'expenses' ? expensesReport : incomesReport;
-  }, [currentView, incomesReport, expensesReport]);
-
-  return data;
+  return useMemo(
+    () => ({
+      incomesReport: {
+        total: Number(incomesData?.total || 0),
+        data: incomesData?.incomesData || {},
+      },
+      expensesReport: {
+        total: Number(expensesData?.total || 0),
+        data: expensesData?.expensesData || {},
+      },
+    }),
+    [incomesData, expensesData]
+  );
 };
 
 export default useReport;
