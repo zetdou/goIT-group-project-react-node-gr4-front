@@ -38,7 +38,7 @@ const Balance = () => {
     try {
       await handleUpdateBalance(newBalance);
       await dispatch(fetchCurrentUser()).unwrap();
-      form.current.reset();
+      e.target.reset();
     } catch (error) {
       console.error('Failed to update balance:', error);
     }
