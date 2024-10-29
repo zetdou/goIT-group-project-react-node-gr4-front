@@ -3,10 +3,27 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 
 export const PrivateRoute = ({ element: Component, redirectTo = '/' }) => {
-  const { isLoggedIn, isRefreshing } = useAuth();
-  const shouldRedirect = !isLoggedIn && !isRefreshing;
+  const { isLoggedIn, isRefreshing, accessToken, refreshToken } = useAuth();
 
-  return shouldRedirect ? <Navigate to={redirectTo} /> : <Component />;
+  const persistedAuth = localStorage.getItem('persist:auth');
+  const hasValidAuth = persistedAuth && JSON.parse(persistedAuth).accessToken;
+
+  if (isRefreshing) {
+    return null;
+  }
+
+  const shouldRedirect =
+    !isLoggedIn || (!accessToken && !refreshToken) || !hasValidAuth;
+
+  return shouldRedirect ? (
+    <Navigate
+      to={redirectTo}
+      replace
+      state={{ from: window.location.pathname }}
+    />
+  ) : (
+    <Component />
+  );
 };
 
 PrivateRoute.propTypes = {
